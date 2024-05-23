@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="mKR-dZ-iEJ" customClass="LiveAdWebView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dv4-VG-zpN">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nQB-uC-KG0">
+                    <rect key="frame" x="26" y="48" width="323" height="571"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wjt-nH-vxO" customClass="IMYWebView">
+                            <rect key="frame" x="0.0" y="0.0" width="323" height="571"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n5Z-eN-xja">
+                            <rect key="frame" x="287" y="0.0" width="36" height="36"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="36" id="GeW-td-ytr"/>
+                                <constraint firstAttribute="width" constant="36" id="gtm-RD-AaG"/>
+                            </constraints>
+                            <state key="normal" backgroundImage="xm_advert_window_close"/>
+                            <state key="highlighted" backgroundImage="xm_advert_window_close"/>
+                            <connections>
+                                <action selector="closeAction:" destination="mKR-dZ-iEJ" eventType="touchUpInside" id="lF1-sd-HrE"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="n5Z-eN-xja" secondAttribute="trailing" id="5v0-QY-oIQ"/>
+                        <constraint firstAttribute="trailing" secondItem="wjt-nH-vxO" secondAttribute="trailing" id="EJh-KN-fXb"/>
+                        <constraint firstItem="wjt-nH-vxO" firstAttribute="top" secondItem="nQB-uC-KG0" secondAttribute="top" id="lEe-oN-rcc"/>
+                        <constraint firstItem="wjt-nH-vxO" firstAttribute="leading" secondItem="nQB-uC-KG0" secondAttribute="leading" id="qFO-Ak-cR0"/>
+                        <constraint firstAttribute="bottom" secondItem="wjt-nH-vxO" secondAttribute="bottom" id="uwX-Tc-R3D"/>
+                        <constraint firstItem="n5Z-eN-xja" firstAttribute="top" secondItem="nQB-uC-KG0" secondAttribute="top" id="vu5-Gb-pQB"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="20"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="nQB-uC-KG0" firstAttribute="top" secondItem="mKR-dZ-iEJ" secondAttribute="top" constant="48" id="0pf-Aq-NBK"/>
+                <constraint firstAttribute="bottom" secondItem="nQB-uC-KG0" secondAttribute="bottom" constant="48" id="31k-LD-9mg"/>
+                <constraint firstAttribute="bottom" secondItem="dv4-VG-zpN" secondAttribute="bottom" id="DhB-vU-eDZ"/>
+                <constraint firstItem="nQB-uC-KG0" firstAttribute="leading" secondItem="mKR-dZ-iEJ" secondAttribute="leading" constant="26" id="IJT-Es-tpg"/>
+                <constraint firstAttribute="trailing" secondItem="nQB-uC-KG0" secondAttribute="trailing" constant="26" id="RZw-fY-CVa"/>
+                <constraint firstItem="dv4-VG-zpN" firstAttribute="leading" secondItem="mKR-dZ-iEJ" secondAttribute="leading" id="UYq-G6-5Se"/>
+                <constraint firstAttribute="trailing" secondItem="dv4-VG-zpN" secondAttribute="trailing" id="WGg-oe-ygE"/>
+                <constraint firstItem="dv4-VG-zpN" firstAttribute="top" secondItem="mKR-dZ-iEJ" secondAttribute="top" id="d3L-sZ-FFG"/>
+            </constraints>
+            <connections>
+                <outlet property="bgView" destination="dv4-VG-zpN" id="6d8-4u-biy"/>
+                <outlet property="webView" destination="wjt-nH-vxO" id="9wA-r3-zmD"/>
+            </connections>
+            <point key="canvasLocation" x="-46.5" y="-295.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="xm_advert_window_close" width="36" height="36"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

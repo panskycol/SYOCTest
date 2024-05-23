@@ -1,0 +1,20 @@
+//
+//  PrefixHeader.pch
+//  SYTest
+//
+//  Created by Pan skycol on 2024/5/22.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+#ifdef __OBJC__
+#import <YYKit/YYKit.h>
+#import "SYToolManager.h"
+
+#endif
+
+#endif /* PrefixHeader_pch */
+
+
+///Users/panskycol/Desktop/SYTest/SYTest/SYTest/PrefixHeader.pch Build input file cannot be found: '/Users/panskycol/Desktop/SYTest/SYTest/SYTest/PrefixHeader.pch'. Did you forget to declare this file as an output of a script phase or custom build rule which produces it?
