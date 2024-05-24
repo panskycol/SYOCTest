@@ -5,6 +5,8 @@
 use_frameworks!
 source 'https://github.com/CocoaPods/Specs.git'
 
+# private
+source 'https://git.wahaha636.com:6699/component/specs.git'
 
 platform :ios, '12.0'
 target 'SYTest' do
@@ -14,5 +16,7 @@ target 'SYTest' do
 #  pod 'Logan', '~> 1.2.8'
   pod 'AFNetworking'
   pod 'YYKit'
-
+  pod 'JZUIKit'
+  pod 'SDWebImage'
+  pod 'KVOController'
 end

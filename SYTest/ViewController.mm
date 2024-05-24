@@ -17,6 +17,7 @@
 #import "NSObject+WOSwizzle.h"
 #import "SYStudentModel.h"
 #import "NSDictionary+JZValueString.h"
+#import "JZHelpInfoAlertView.h"
 
 //extern "C" {
 //    #import <Logan/Logan.h>
@@ -31,6 +32,8 @@
 @property (nonatomic, strong) UIButton *btn2;
 
 @property (nonatomic, assign) BOOL isHiddenTabbar;
+
+@property (nonatomic, strong) FGPopupScheduler *Scheduler;
 
 @end
 
@@ -55,7 +58,7 @@
     _btn = [UIButton buttonWithType:UIButtonTypeCustom];
     _btn.frame = CGRectMake(100, 100, 100, 50);
     _btn.backgroundColor = [UIColor grayColor];
-    [_btn setTitle:@"测试" forState:UIControlStateNormal];
+    [_btn setTitle:@"测试1" forState:UIControlStateNormal];
     [self.view addSubview:_btn];
     [_btn addTarget:self action:@selector(onClick1) forControlEvents:UIControlEventTouchUpInside];
     
@@ -67,6 +70,13 @@
     [_btn2 addTarget:self action:@selector(onClick2) forControlEvents:UIControlEventTouchUpInside];
     
     [_btn2 addObserver:self forKeyPath:@"hidden" options:NSKeyValueObservingOptionNew context:NULL];
+    
+    [self setState:FGPopupSchedulerStrategyPriority];
+}
+
+- (void)setState:(FGPopupSchedulerStrategy)pss{
+    FGPopupScheduler *Scheduler = [FGPopupScheduler FGPopupSchedulerGetForPSS:pss];
+    self.Scheduler = Scheduler;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context{
@@ -105,14 +115,31 @@
 
 - (void)onClick1{
 
-    [self startRequest];
+//    [self startRequest];
+    
+    JZHelpInfoAlertView *alertView = [[JZHelpInfoAlertView alloc] initWithFrame:self.view.bounds];
+    JZHelpInfoAlertView *alertView2 = [[JZHelpInfoAlertView alloc] initWithFrame:self.view.bounds];
+    alertView2.titleLb.text = @"测试2";
+    JZHelpInfoAlertView *alertView3 = [[JZHelpInfoAlertView alloc] initWithFrame:self.view.bounds];
+    alertView3.titleLb.text = @"测试3";
+    JZHelpInfoAlertView *alertView4 = [[JZHelpInfoAlertView alloc] initWithFrame:self.view.bounds];
+    alertView4.titleLb.text = @"测试4";
+    [_Scheduler add:alertView];
+    [_Scheduler add:alertView2];
+    [_Scheduler add:alertView3];
+    [_Scheduler add:alertView4];
+    
+//    WeakSelf(self);
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        JZHelpInfoAlertView *alertView5 = [[JZHelpInfoAlertView alloc] initWithFrame:self.view.bounds];
+//        alertView5.titleLb.text = @"测试5";
+//        alertView5.showSuperView = self.view;
+//        [weakself.Scheduler add:alertView5 Priority:FGPopupStrategyPriorityVeryHigh];
+//    });
 }
 
 - (void)onClick2{
    
-    [_btn2 removeObserver:self forKeyPath:@"hidden"];
-    [_btn2 removeObserver:self forKeyPath:@"hidden"];
-    [_btn2 removeObserver:self forKeyPath:@"hidden"];
 }
 
 - (void)sy_Test2{

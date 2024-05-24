@@ -8,6 +8,7 @@
 #import "AppDelegate.h"
 #import "ViewController.h"
 #import "WOCrashProtectorManager.h"
+#import "JZBasePopupView.h"
 
 @interface AppDelegate ()
 
@@ -33,7 +34,7 @@
     tabVC.viewControllers = @[navVc];
     self.window.rootViewController = tabVC;
     
-    [WOCrashProtectorManager makeAllEffective];
+//    [WOCrashProtectorManager makeAllEffective];
     
     return YES;
 }

@@ -9,8 +9,15 @@
 #define PrefixHeader_pch
 
 #ifdef __OBJC__
+
 #import <YYKit/YYKit.h>
 #import "SYToolManager.h"
+#import <JZUIKit/JZUIKit.h>
+#import <Masonry/Masonry.h>
+#import "Macro.h"
+#import <SDWebImage/SDWebImage.h>
+#import <KVOController/KVOController.h>
+#import "UIImage+JZCategory.h"
 
 #endif
 
