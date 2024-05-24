@@ -13,6 +13,11 @@
 
 @implementation JZPopupViewPlaceHolder
 
+@synthesize key;
+@synthesize UntriggeredBehavior;
+@synthesize showSuperView;
+@synthesize scheduler;
+
 - (void)dealloc{
     NSLog(@"asdasdas");
 }

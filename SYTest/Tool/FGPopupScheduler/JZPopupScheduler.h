@@ -11,6 +11,17 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/***
+ 
+ 实现的功能：
+ 1.可以让所有的弹窗排队展示，不至于全部重叠在一起
+ 2.信令过来优先级高的视图，可以选择优先展示，原来的弹窗可以选择保留或者丢弃
+ 3.自己创建UIAlertController也可以加入到队列中去排队：JZPopupViewPlaceHolder
+ 4.自己添加的功能：可以根据key删除指定的还没展示的弹窗
+ 5.添加弹窗进入队列时可以设置优先级，内部会插入到链表的对应位置（内部队列使用链表实现）
+ 
+ */
+
 @interface JZPopupScheduler : NSObject
 
 /// 根据指定的策略生成一个弹窗控制队列

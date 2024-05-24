@@ -18,6 +18,7 @@
 #import "SYStudentModel.h"
 #import "NSDictionary+JZValueString.h"
 #import "JZHelpInfoAlertView.h"
+#import "JZPopupViewPlaceHolder.h"
 
 //extern "C" {
 //    #import <Logan/Logan.h>
@@ -118,24 +119,40 @@
 //    [self startRequest];
     
     JZHelpInfoAlertView *alertView = [[JZHelpInfoAlertView alloc] initWithFrame:self.view.bounds];
+    alertView.switchBehavior = JZPopupViewSwitchBehaviorDiscard;
     JZHelpInfoAlertView *alertView2 = [[JZHelpInfoAlertView alloc] initWithFrame:self.view.bounds];
     alertView2.titleLb.text = @"测试2";
     JZHelpInfoAlertView *alertView3 = [[JZHelpInfoAlertView alloc] initWithFrame:self.view.bounds];
     alertView3.titleLb.text = @"测试3";
     JZHelpInfoAlertView *alertView4 = [[JZHelpInfoAlertView alloc] initWithFrame:self.view.bounds];
     alertView4.titleLb.text = @"测试4";
-    [_Scheduler add:alertView];
-    [_Scheduler add:alertView2];
-    [_Scheduler add:alertView3];
-    [_Scheduler add:alertView4];
     
-//    WeakSelf(self);
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        JZHelpInfoAlertView *alertView5 = [[JZHelpInfoAlertView alloc] initWithFrame:self.view.bounds];
-//        alertView5.titleLb.text = @"测试5";
-//        alertView5.showSuperView = self.view;
-//        [weakself.Scheduler add:alertView5 Priority:JZPopupStrategyPriorityVeryHigh];
-//    });
+    UIAlertController *vc = [UIAlertController alertControllerWithTitle:@"系统弹窗" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    JZPopupViewPlaceHolder *AlertPlaceHolder = [JZPopupViewPlaceHolder generatePlaceHolderWith:vc];
+    __weak JZPopupViewPlaceHolder* weakHolder = AlertPlaceHolder;
+    [vc addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        [_Scheduler remove:weakHolder];
+    }]];
+    AlertPlaceHolder.showPopupViewCallBlock = ^(NSObject *__weak  _Nonnull weakObj) {
+        [self presentViewController:(UIAlertController *)weakObj animated:YES completion:nil];
+    };
+    AlertPlaceHolder.removePopupViewCallBlock = ^(NSObject *__weak  _Nonnull weakObj) {
+        [(UIAlertController *)weakObj dismissViewControllerAnimated:YES completion:nil];
+    };
+    
+    [_Scheduler add:alertView Priority:JZPopupStrategyPriorityVeryHigh];
+    [_Scheduler add:alertView2 Priority:JZPopupStrategyPriorityHigh];
+    [_Scheduler add:alertView3 Priority:JZPopupStrategyPriorityLow];
+    [_Scheduler add:alertView4 Priority:JZPopupStrategyPriorityLow];
+    [_Scheduler add:AlertPlaceHolder];
+    
+    WeakSelf(self);
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        JZHelpInfoAlertView *alertView5 = [[JZHelpInfoAlertView alloc] initWithFrame:self.view.bounds];
+        alertView5.titleLb.text = @"测试5";
+        alertView5.showSuperView = self.view;
+        [weakself.Scheduler add:alertView5 Priority:JZPopupStrategyPriorityNormal];
+    });
 }
 
 - (void)onClick2{
