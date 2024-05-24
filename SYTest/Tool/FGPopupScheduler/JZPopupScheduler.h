@@ -1,17 +1,17 @@
 //
-//  FGPopupViewScheduler.h
+//  JZPopupViewScheduler.h
 //  FGPopViewScheduler
 //
 //  Created by FoneG on 2021/6/22.
 //
 
 #import <Foundation/Foundation.h>
-#import "FGPopupSchedulerConstant.h"
-#import "FGPopupView.h"
+#import "JZPopupSchedulerConstant.h"
+#import "JZPopupView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface FGPopupScheduler : NSObject
+@interface JZPopupScheduler : NSObject
 
 /// 根据指定的策略生成一个弹窗控制队列
 /// @param pps 策略类型
@@ -22,41 +22,41 @@ NS_ASSUME_NONNULL_BEGIN
  @param pss  FIFO、LIFO、Priority
  @return 返回指定策略的调度器，需要外部持有生命周期
  */
-- (instancetype)initWithStrategy:(FGPopupSchedulerStrategy)pss;
+- (instancetype)initWithStrategy:(JZPopupSchedulerStrategy)pss;
 
 /**
  获取一个指定调取策略全局的弹窗调度器
  */
-+ (FGPopupScheduler *)FGPopupSchedulerGetForPSS:(FGPopupSchedulerStrategy)pss;
++ (JZPopupScheduler *)JZPopupSchedulerGetForPSS:(JZPopupSchedulerStrategy)pss;
 
 /**
- 向队列插入一个弹窗，FGPopupScheduler会根据设置的策略状态来控制在队列中插入的位置,  如果条件允许（通过-hitTest），将会通过-showPopupViewWithAnimation or -showPopupView 显示。 支持线程安全
+ 向队列插入一个弹窗，JZPopupScheduler会根据设置的策略状态来控制在队列中插入的位置,  如果条件允许（通过-hitTest），将会通过-showPopupViewWithAnimation or -showPopupView 显示。 支持线程安全
  
  @param view 弹窗实例
  */
-- (void)add:(id<FGPopupView>)view;
+- (void)add:(id<JZPopupView>)view;
 
 /**
- 向队列插入一个弹窗，FGPopupScheduler会根据设置的策略状态来控制在队列中插入的位置, 支持线程安全  (FGPopupViewStrategy逻辑已经被删除，替换枚举类型： FGPopupViewSwitchBehavior )
+ 向队列插入一个弹窗，JZPopupScheduler会根据设置的策略状态来控制在队列中插入的位置, 支持线程安全  (JZPopupViewStrategy逻辑已经被删除，替换枚举类型： JZPopupViewSwitchBehavior )
  
  @param view 弹窗实例
- @param psp 当选择优先级调度策略时，会根据 FGPopupStrategyPriority来判断弹窗插入的位置
+ @param psp 当选择优先级调度策略时，会根据 JZPopupStrategyPriority来判断弹窗插入的位置
  */
-- (void)add:(id<FGPopupView>)view Priority:(FGPopupStrategyPriority)psp;
+- (void)add:(id<JZPopupView>)view Priority:(JZPopupStrategyPriority)psp;
 
 
 /**
-把弹窗种队列种移除, 不会触发<FGPopupView>的-dismissPopupViewW or -dismissPopupViewWithAnimation: 方法，支持线程安全
+把弹窗种队列种移除, 不会触发<JZPopupView>的-dismissPopupViewW or -dismissPopupViewWithAnimation: 方法，支持线程安全
  
 @param view 弹窗实例
  */
-- (void)remove:(id<FGPopupView>)view;
+- (void)remove:(id<JZPopupView>)view;
 
 
 - (void)removeAlertViewWithKey:(NSString *)key;
 
 /**
- 移除队列中所有的弹窗队列，显示的弹窗将会触发<FGPopupView>的-dismissPopupViewW or -dismissPopupViewWithAnimation: 方法,  并优先执行-dismissPopupViewWithAnimation:方法。 支持线程安全
+ 移除队列中所有的弹窗队列，显示的弹窗将会触发<JZPopupView>的-dismissPopupViewW or -dismissPopupViewWithAnimation: 方法,  并优先执行-dismissPopupViewWithAnimation:方法。 支持线程安全
  */
 - (void)removeAllPopupViews;
 

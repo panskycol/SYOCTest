@@ -38,19 +38,19 @@
 		593A9FEF2BFDF6290058832C /* SYToolManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 593A9FEE2BFDF6290058832C /* SYToolManager.m */; };
 		593A9FF22BFDF7350058832C /* SYStudentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 593A9FF12BFDF7350058832C /* SYStudentModel.m */; };
 		593A9FF92BFED05C0058832C /* NSDictionary+JZValueString.m in Sources */ = {isa = PBXBuildFile; fileRef = 593A9FF72BFED05C0058832C /* NSDictionary+JZValueString.m */; };
-		593AA0422C0037010058832C /* FGPopupList.mm in Sources */ = {isa = PBXBuildFile; fileRef = 593AA02E2C0037010058832C /* FGPopupList.mm */; };
-		593AA0432C0037010058832C /* FGPopupList+Monitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 593AA0312C0037010058832C /* FGPopupList+Monitor.m */; };
-		593AA0442C0037010058832C /* FGPopupPriorityList.m in Sources */ = {isa = PBXBuildFile; fileRef = 593AA0332C0037010058832C /* FGPopupPriorityList.m */; };
-		593AA0452C0037010058832C /* FGPopupQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 593AA0352C0037010058832C /* FGPopupQueue.m */; };
-		593AA0462C0037010058832C /* FGPopupScheduler.m in Sources */ = {isa = PBXBuildFile; fileRef = 593AA0372C0037010058832C /* FGPopupScheduler.m */; };
-		593AA0472C0037010058832C /* FGPopupStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 593AA03B2C0037010058832C /* FGPopupStack.m */; };
-		593AA0482C0037010058832C /* FGPopupViewPlaceHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 593AA03E2C0037010058832C /* FGPopupViewPlaceHolder.m */; };
+		593AA0422C0037010058832C /* JZPopupList.mm in Sources */ = {isa = PBXBuildFile; fileRef = 593AA02E2C0037010058832C /* JZPopupList.mm */; };
+		593AA0432C0037010058832C /* JZPopupList+Monitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 593AA0312C0037010058832C /* JZPopupList+Monitor.m */; };
+		593AA0462C0037010058832C /* JZPopupScheduler.m in Sources */ = {isa = PBXBuildFile; fileRef = 593AA0372C0037010058832C /* JZPopupScheduler.m */; };
 		593AA0492C0037010058832C /* NSObject+SwizzleMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 593AA0402C0037010058832C /* NSObject+SwizzleMethod.m */; };
 		593AA04D2C00384F0058832C /* JZBasePopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 593AA04B2C00384F0058832C /* JZBasePopupView.m */; };
 		593AA0592C0041940058832C /* JZHelpInfoAlertViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 593AA0572C0041940058832C /* JZHelpInfoAlertViewTableViewCell.m */; };
 		593AA05A2C0041940058832C /* JZHelpInfoAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 593AA0582C0041940058832C /* JZHelpInfoAlertView.m */; };
 		593AA05E2C0044700058832C /* UIImage+JZCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 593AA05D2C00446F0058832C /* UIImage+JZCategory.m */; };
 		593AA0612C00451D0058832C /* FXBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 593AA05F2C00451D0058832C /* FXBlurView.m */; };
+		593AA0742C0082760058832C /* JZPopupQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 593AA0622C0082750058832C /* JZPopupQueue.m */; };
+		593AA0762C0082760058832C /* JZPopupStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 593AA0652C0082750058832C /* JZPopupStack.m */; };
+		593AA0772C0082760058832C /* JZPopupPriorityList.m in Sources */ = {isa = PBXBuildFile; fileRef = 593AA06A2C0082760058832C /* JZPopupPriorityList.m */; };
+		593AA0782C0082760058832C /* JZPopupViewPlaceHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 593AA06C2C0082760058832C /* JZPopupViewPlaceHolder.m */; };
 		59743B742BCD1604009D49CC /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 59743B4C2BCD1604009D49CC /* LICENSE */; };
 		59743B752BCD1604009D49CC /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 59743B4D2BCD1604009D49CC /* README.md */; };
 		59743B762BCD1604009D49CC /* UIAlertView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 59743B4F2BCD1604009D49CC /* UIAlertView+AFNetworking.m */; };
@@ -158,24 +158,13 @@
 		593A9FF12BFDF7350058832C /* SYStudentModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYStudentModel.m; sourceTree = "<group>"; };
 		593A9FF72BFED05C0058832C /* NSDictionary+JZValueString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+JZValueString.m"; sourceTree = "<group>"; };
 		593A9FF82BFED05C0058832C /* NSDictionary+JZValueString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+JZValueString.h"; sourceTree = "<group>"; };
-		593AA02D2C0037010058832C /* FGPopupList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FGPopupList.h; sourceTree = "<group>"; };
-		593AA02E2C0037010058832C /* FGPopupList.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FGPopupList.mm; sourceTree = "<group>"; };
-		593AA02F2C0037010058832C /* FGPopupList+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FGPopupList+Internal.h"; sourceTree = "<group>"; };
-		593AA0302C0037010058832C /* FGPopupList+Monitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FGPopupList+Monitor.h"; sourceTree = "<group>"; };
-		593AA0312C0037010058832C /* FGPopupList+Monitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FGPopupList+Monitor.m"; sourceTree = "<group>"; };
-		593AA0322C0037010058832C /* FGPopupPriorityList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FGPopupPriorityList.h; sourceTree = "<group>"; };
-		593AA0332C0037010058832C /* FGPopupPriorityList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FGPopupPriorityList.m; sourceTree = "<group>"; };
-		593AA0342C0037010058832C /* FGPopupQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FGPopupQueue.h; sourceTree = "<group>"; };
-		593AA0352C0037010058832C /* FGPopupQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FGPopupQueue.m; sourceTree = "<group>"; };
-		593AA0362C0037010058832C /* FGPopupScheduler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FGPopupScheduler.h; sourceTree = "<group>"; };
-		593AA0372C0037010058832C /* FGPopupScheduler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FGPopupScheduler.m; sourceTree = "<group>"; };
-		593AA0382C0037010058832C /* FGPopupSchedulerConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FGPopupSchedulerConstant.h; sourceTree = "<group>"; };
-		593AA0392C0037010058832C /* FGPopupSchedulerStrategyQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FGPopupSchedulerStrategyQueue.h; sourceTree = "<group>"; };
-		593AA03A2C0037010058832C /* FGPopupStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FGPopupStack.h; sourceTree = "<group>"; };
-		593AA03B2C0037010058832C /* FGPopupStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FGPopupStack.m; sourceTree = "<group>"; };
-		593AA03C2C0037010058832C /* FGPopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FGPopupView.h; sourceTree = "<group>"; };
-		593AA03D2C0037010058832C /* FGPopupViewPlaceHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FGPopupViewPlaceHolder.h; sourceTree = "<group>"; };
-		593AA03E2C0037010058832C /* FGPopupViewPlaceHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FGPopupViewPlaceHolder.m; sourceTree = "<group>"; };
+		593AA02D2C0037010058832C /* JZPopupList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JZPopupList.h; sourceTree = "<group>"; };
+		593AA02E2C0037010058832C /* JZPopupList.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JZPopupList.mm; sourceTree = "<group>"; };
+		593AA02F2C0037010058832C /* JZPopupList+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JZPopupList+Internal.h"; sourceTree = "<group>"; };
+		593AA0302C0037010058832C /* JZPopupList+Monitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JZPopupList+Monitor.h"; sourceTree = "<group>"; };
+		593AA0312C0037010058832C /* JZPopupList+Monitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JZPopupList+Monitor.m"; sourceTree = "<group>"; };
+		593AA0362C0037010058832C /* JZPopupScheduler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JZPopupScheduler.h; sourceTree = "<group>"; };
+		593AA0372C0037010058832C /* JZPopupScheduler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JZPopupScheduler.m; sourceTree = "<group>"; };
 		593AA03F2C0037010058832C /* NSObject+SwizzleMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SwizzleMethod.h"; sourceTree = "<group>"; };
 		593AA0402C0037010058832C /* NSObject+SwizzleMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SwizzleMethod.m"; sourceTree = "<group>"; };
 		593AA04B2C00384F0058832C /* JZBasePopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JZBasePopupView.m; sourceTree = "<group>"; };
@@ -188,6 +177,17 @@
 		593AA05D2C00446F0058832C /* UIImage+JZCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+JZCategory.m"; sourceTree = "<group>"; };
 		593AA05F2C00451D0058832C /* FXBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXBlurView.m; sourceTree = "<group>"; };
 		593AA0602C00451D0058832C /* FXBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXBlurView.h; sourceTree = "<group>"; };
+		593AA0622C0082750058832C /* JZPopupQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JZPopupQueue.m; sourceTree = "<group>"; };
+		593AA0652C0082750058832C /* JZPopupStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JZPopupStack.m; sourceTree = "<group>"; };
+		593AA0662C0082750058832C /* JZPopupSchedulerConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JZPopupSchedulerConstant.h; sourceTree = "<group>"; };
+		593AA0672C0082760058832C /* JZPopupPriorityList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JZPopupPriorityList.h; sourceTree = "<group>"; };
+		593AA0682C0082760058832C /* JZPopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JZPopupView.h; sourceTree = "<group>"; };
+		593AA0692C0082760058832C /* JZPopupViewPlaceHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JZPopupViewPlaceHolder.h; sourceTree = "<group>"; };
+		593AA06A2C0082760058832C /* JZPopupPriorityList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JZPopupPriorityList.m; sourceTree = "<group>"; };
+		593AA06B2C0082760058832C /* JZPopupStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JZPopupStack.h; sourceTree = "<group>"; };
+		593AA06C2C0082760058832C /* JZPopupViewPlaceHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JZPopupViewPlaceHolder.m; sourceTree = "<group>"; };
+		593AA0722C0082760058832C /* JZPopupQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JZPopupQueue.h; sourceTree = "<group>"; };
+		593AA0732C0082760058832C /* JZPopupSchedulerStrategyQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JZPopupSchedulerStrategyQueue.h; sourceTree = "<group>"; };
 		59743B4C2BCD1604009D49CC /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		59743B4D2BCD1604009D49CC /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		59743B4F2BCD1604009D49CC /* UIAlertView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+AFNetworking.m"; sourceTree = "<group>"; };
@@ -438,27 +438,27 @@
 		593AA0412C0037010058832C /* FGPopupScheduler */ = {
 			isa = PBXGroup;
 			children = (
-				593AA04A2C0037180058832C /* View */,
-				593AA0362C0037010058832C /* FGPopupScheduler.h */,
-				593AA0372C0037010058832C /* FGPopupScheduler.m */,
-				593AA02D2C0037010058832C /* FGPopupList.h */,
-				593AA02E2C0037010058832C /* FGPopupList.mm */,
-				593AA02F2C0037010058832C /* FGPopupList+Internal.h */,
-				593AA0302C0037010058832C /* FGPopupList+Monitor.h */,
-				593AA0312C0037010058832C /* FGPopupList+Monitor.m */,
-				593AA0322C0037010058832C /* FGPopupPriorityList.h */,
-				593AA0332C0037010058832C /* FGPopupPriorityList.m */,
-				593AA0342C0037010058832C /* FGPopupQueue.h */,
-				593AA0352C0037010058832C /* FGPopupQueue.m */,
-				593AA0382C0037010058832C /* FGPopupSchedulerConstant.h */,
-				593AA0392C0037010058832C /* FGPopupSchedulerStrategyQueue.h */,
-				593AA03A2C0037010058832C /* FGPopupStack.h */,
-				593AA03B2C0037010058832C /* FGPopupStack.m */,
-				593AA03C2C0037010058832C /* FGPopupView.h */,
-				593AA03D2C0037010058832C /* FGPopupViewPlaceHolder.h */,
-				593AA03E2C0037010058832C /* FGPopupViewPlaceHolder.m */,
+				593AA0362C0037010058832C /* JZPopupScheduler.h */,
+				593AA0372C0037010058832C /* JZPopupScheduler.m */,
+				593AA02D2C0037010058832C /* JZPopupList.h */,
+				593AA02E2C0037010058832C /* JZPopupList.mm */,
+				593AA02F2C0037010058832C /* JZPopupList+Internal.h */,
+				593AA0302C0037010058832C /* JZPopupList+Monitor.h */,
+				593AA0312C0037010058832C /* JZPopupList+Monitor.m */,
+				593AA0672C0082760058832C /* JZPopupPriorityList.h */,
+				593AA06A2C0082760058832C /* JZPopupPriorityList.m */,
+				593AA0722C0082760058832C /* JZPopupQueue.h */,
+				593AA0622C0082750058832C /* JZPopupQueue.m */,
+				593AA0662C0082750058832C /* JZPopupSchedulerConstant.h */,
+				593AA0732C0082760058832C /* JZPopupSchedulerStrategyQueue.h */,
+				593AA06B2C0082760058832C /* JZPopupStack.h */,
+				593AA0652C0082750058832C /* JZPopupStack.m */,
+				593AA0682C0082760058832C /* JZPopupView.h */,
+				593AA0692C0082760058832C /* JZPopupViewPlaceHolder.h */,
+				593AA06C2C0082760058832C /* JZPopupViewPlaceHolder.m */,
 				593AA03F2C0037010058832C /* NSObject+SwizzleMethod.h */,
 				593AA0402C0037010058832C /* NSObject+SwizzleMethod.m */,
+				593AA04A2C0037180058832C /* View */,
 			);
 			path = FGPopupScheduler;
 			sourceTree = "<group>";
@@ -713,6 +713,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				593AA0742C0082760058832C /* JZPopupQueue.m in Sources */,
 				593A9FF22BFDF7350058832C /* SYStudentModel.m in Sources */,
 				593A9FF92BFED05C0058832C /* NSDictionary+JZValueString.m in Sources */,
 				593AA0612C00451D0058832C /* FXBlurView.m in Sources */,
@@ -723,20 +724,18 @@
 				593A9BB22BFC99800058832C /* WOCrashProtectorManager.m in Sources */,
 				59743B7A2BCD1604009D49CC /* UIImageView+AFNetworking.m in Sources */,
 				59743B842BCD1604009D49CC /* AFHTTPRequestOperation.m in Sources */,
+				593AA0772C0082760058832C /* JZPopupPriorityList.m in Sources */,
 				593AA05A2C0041940058832C /* JZHelpInfoAlertView.m in Sources */,
 				593A9BA82BFC99800058832C /* NSMutableAttributedString+WOCrash.m in Sources */,
 				59743B7B2BCD1604009D49CC /* UIButton+AFNetworking.m in Sources */,
 				59743B7F2BCD1604009D49CC /* AFHTTPSessionManager.m in Sources */,
 				593A9BAB2BFC99800058832C /* NSString+WOCrash.m in Sources */,
-				593AA0472C0037010058832C /* FGPopupStack.m in Sources */,
-				593AA0462C0037010058832C /* FGPopupScheduler.m in Sources */,
+				593AA0462C0037010058832C /* JZPopupScheduler.m in Sources */,
 				59743B802BCD1604009D49CC /* AFURLConnectionOperation.m in Sources */,
 				59743B862BCD1604009D49CC /* AFSecurityPolicy.m in Sources */,
 				59743B812BCD1604009D49CC /* AFURLSessionManager.m in Sources */,
-				593AA0452C0037010058832C /* FGPopupQueue.m in Sources */,
 				59EE8AD22B90540F00375ABE /* ViewController.mm in Sources */,
 				593AA05E2C0044700058832C /* UIImage+JZCategory.m in Sources */,
-				593AA0442C0037010058832C /* FGPopupPriorityList.m in Sources */,
 				593A9BA52BFC99800058832C /* NSAttributedString+WOCrash.m in Sources */,
 				59743B832BCD1604009D49CC /* AFURLRequestSerialization.m in Sources */,
 				59743B7D2BCD1604009D49CC /* UIWebView+AFNetworking.m in Sources */,
@@ -746,6 +745,7 @@
 				59743B822BCD1604009D49CC /* AFHTTPRequestOperationManager.m in Sources */,
 				59743B772BCD1604009D49CC /* UIProgressView+AFNetworking.m in Sources */,
 				593A9BAD2BFC99800058832C /* NSObject+NSNotificationCrash.m in Sources */,
+				593AA0762C0082760058832C /* JZPopupStack.m in Sources */,
 				592D55742B99C63500244945 /* IMYWebView.m in Sources */,
 				592D55782B99C89E00244945 /* LiveAdWebView.m in Sources */,
 				593A9BB02BFC99800058832C /* NSTimer+Crash.m in Sources */,
@@ -758,16 +758,16 @@
 				593A9BA42BFC99800058832C /* NSArray+WOCrash.m in Sources */,
 				59EE8AD42B90543F00375ABE /* Sample.mm in Sources */,
 				593A9BB12BFC99800058832C /* WOCrashLog.m in Sources */,
-				593AA0422C0037010058832C /* FGPopupList.mm in Sources */,
-				593AA0432C0037010058832C /* FGPopupList+Monitor.m in Sources */,
+				593AA0422C0037010058832C /* JZPopupList.mm in Sources */,
+				593AA0432C0037010058832C /* JZPopupList+Monitor.m in Sources */,
 				593AA0492C0037010058832C /* NSObject+SwizzleMethod.m in Sources */,
 				593A9BA92BFC99800058832C /* NSMutableDictionary+WOCrash.m in Sources */,
 				59B2D5A82BB2D719005F47EC /* SYGestureViewController.m in Sources */,
 				593A9BAE2BFC99800058832C /* NSObject+SelectorCrash.m in Sources */,
 				59743B852BCD1604009D49CC /* AFNetworkReachabilityManager.m in Sources */,
-				593AA0482C0037010058832C /* FGPopupViewPlaceHolder.m in Sources */,
 				592D55702B999C1C00244945 /* MSAvatarSampleView.m in Sources */,
 				59743B892BCD1666009D49CC /* SYThread.m in Sources */,
+				593AA0782C0082760058832C /* JZPopupViewPlaceHolder.m in Sources */,
 				593AA0592C0041940058832C /* JZHelpInfoAlertViewTableViewCell.m in Sources */,
 				593A9BAA2BFC99800058832C /* NSMutableString+WOCrash.m in Sources */,
 			);

@@ -1,18 +1,18 @@
 //
-//  FGPopupList.m
-//  FGPopupSchedulerDemo
+//  JZPopupList.m
+//  JZPopupSchedulerDemo
 //
 //  Created by FoneG on 2021/6/24.
 //
 
-#import "FGPopupList.h"
+#import "JZPopupList.h"
 #import <objc/runtime.h>
 #include <list>
-#import "FGPopupList+Monitor.h"
+#import "JZPopupList+Monitor.h"
 
 using namespace std;
 
-@interface FGPopupList ()
+@interface JZPopupList ()
 {
     list<PopupElement*> _list;
 }
@@ -20,7 +20,7 @@ using namespace std;
 @property (nonatomic, strong) NSMutableDictionary *popViewInfo;
 @end
 
-@implementation FGPopupList
+@implementation JZPopupList
 
 - (BOOL)canRegisterFirstFirstPopupViewResponder{
     return self.FirstFirstResponderElement == nil ;
@@ -34,9 +34,9 @@ using namespace std;
     return _popViewInfo;
 }
 
-#pragma mark - FGPopupSchedulerStrategyQueue
+#pragma mark - JZPopupSchedulerStrategyQueue
 
-- (void)addPopupView:(id<FGPopupView>)view Priority:(FGPopupStrategyPriority)Priority{
+- (void)addPopupView:(id<JZPopupView>)view Priority:(JZPopupStrategyPriority)Priority{
     
     if (view.key.length > 0) {
         self.popViewInfo[view.key] = view;
@@ -46,7 +46,7 @@ using namespace std;
 }
 
 
-- (void)removePopupView:(id<FGPopupView>)view{
+- (void)removePopupView:(id<JZPopupView>)view{
     [self _rm_data:view];
     
     if (view.key.length > 0 && self.popViewInfo[view.key]) {
@@ -60,7 +60,7 @@ using namespace std;
 
 - (void)removePopupViewWithKey:(NSString *)key{
     
-    id<FGPopupView> view = self.popViewInfo[key];
+    id<JZPopupView> view = self.popViewInfo[key];
     if (view) {
         [self _rm_data:view];
         
@@ -68,7 +68,7 @@ using namespace std;
             [self.popViewInfo removeObjectForKey:view.key];
         }
     }
-//    id<FGPopupView> view = [self getElementWithKey:key];
+//    id<JZPopupView> view = [self getElementWithKey:key];
 //    if (view) {
 //        [self _rm_data:view];
 //        
@@ -80,7 +80,7 @@ using namespace std;
 
 - (BOOL)execute{
     PopupElement *elemt = [self _hitTestFirstPopupResponder];
-    id<FGPopupView> view = elemt.data;
+    id<JZPopupView> view = elemt.data;
     if (!view) {
         return NO;
     }
@@ -107,7 +107,7 @@ using namespace std;
     
     _list.clear();
     
-    id<FGPopupView> data = self.FirstFirstResponderElement.data;
+    id<JZPopupView> data = self.FirstFirstResponderElement.data;
     
     if ([data respondsToSelector:@selector(dismissPopupView)]) {
         [data dismissPopupView];
@@ -122,12 +122,12 @@ using namespace std;
     }
 }
 
-- (id<FGPopupView>)getElementWithKey:(NSString *)key{
+- (id<JZPopupView>)getElementWithKey:(NSString *)key{
     
-    id<FGPopupView> viewEle = nil;
+    id<JZPopupView> viewEle = nil;
     for(auto itor=_list.begin(); itor!=_list.end();) {
         PopupElement *temp = *itor;
-        id<FGPopupView> data = temp.data;
+        id<JZPopupView> data = temp.data;
         if ([data.key isEqualToString:key]) {
             viewEle = data;
             break;
@@ -147,7 +147,7 @@ using namespace std;
     PopupElement *element;
     for(auto itor=_list.begin(); itor!=_list.end();) {
         PopupElement *temp = *itor;
-        id<FGPopupView> data = temp.data;
+        id<JZPopupView> data = temp.data;
         
         __block BOOL canRegisterFirstPopupViewResponder = YES;
         if ([data respondsToSelector:@selector(canRegisterFirstPopupViewResponder)]) {
@@ -160,8 +160,8 @@ using namespace std;
         }
         /// 这里只能由为显示的popup所触发
         else if([data respondsToSelector:@selector(popupViewUntriggeredBehavior)] &&
-                ([data popupViewUntriggeredBehavior] == FGPopupViewUntriggeredBehaviorDiscard ||
-                 [data popupViewUntriggeredBehavior] == FGPopupViewUntriggeredAbandon)){
+                ([data popupViewUntriggeredBehavior] == JZPopupViewUntriggeredBehaviorDiscard ||
+                 [data popupViewUntriggeredBehavior] == JZPopupViewUntriggeredAbandon)){
             //由于 itor++ 是先传递 itor 再递增，所以 erase 删除的是 itor 指向的当前元素，而左边的 itor 是自身递增后指向的下一个元素。
             itor = _list.erase(itor++);
         }
@@ -219,7 +219,7 @@ using namespace std;
 
 @implementation PopupElement
 
-+ (instancetype)elementWith:(id<FGPopupView>)data Priority:(FGPopupStrategyPriority)Priority{
++ (instancetype)elementWith:(id<JZPopupView>)data Priority:(JZPopupStrategyPriority)Priority{
     PopupElement *element = [PopupElement new];
     element.data = data;
     element.Priority = Priority;

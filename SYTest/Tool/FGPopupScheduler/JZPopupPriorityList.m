@@ -1,17 +1,17 @@
 //
-//  FGPopupPriority.m
-//  FGPopupSchedulerDemo
+//  JZPopupPriority.m
+//  JZPopupSchedulerDemo
 //
 //  Created by FoneG on 2021/6/25.
 //
 
-#import "FGPopupPriorityList.h"
-#import "FGPopupList+Internal.h"
+#import "JZPopupPriorityList.h"
+#import "JZPopupList+Internal.h"
 #import <objc/runtime.h>
 
-@implementation FGPopupPriorityList
+@implementation JZPopupPriorityList
 
-- (void)addPopupView:(id<FGPopupView>)view Priority:(FGPopupStrategyPriority)Priority{
+- (void)addPopupView:(id<JZPopupView>)view Priority:(JZPopupStrategyPriority)Priority{
    
     [super addPopupView:view Priority:Priority];
     __block int index = 0;
@@ -19,7 +19,7 @@
     [self _enumerateObjectsUsingBlock:^(PopupElement * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if (obj.Priority > Priority) {
             index++;
-        }else if(obj.Priority == Priority && self.PPAS == FGPopupPriorityAddStrategyFIFO){
+        }else if(obj.Priority == Priority && self.PPAS == JZPopupPriorityAddStrategyFIFO){
             index++;
         }else{
             *stop = YES;
@@ -28,23 +28,23 @@
     [self _insert:[PopupElement elementWith:view Priority:Priority] index:index];
     
     
-    id<FGPopupView> firstResponderPopuper = self.FirstFirstResponderElement.data;
-    FGPopupStrategyPriority firstResponderPriority = self.FirstFirstResponderElement.Priority;
+    id<JZPopupView> firstResponderPopuper = self.FirstFirstResponderElement.data;
+    JZPopupStrategyPriority firstResponderPriority = self.FirstFirstResponderElement.Priority;
     
-    BOOL jump = [firstResponderPopuper respondsToSelector:@selector(popupViewSwitchBehavior)] && firstResponderPopuper.popupViewSwitchBehavior != FGPopupViewSwitchBehaviorAwait;
-    BOOL highPriority = firstResponderPriority < Priority || (firstResponderPriority == Priority && self.PPAS == FGPopupPriorityAddStrategyLIFO);
+    BOOL jump = [firstResponderPopuper respondsToSelector:@selector(popupViewSwitchBehavior)] && firstResponderPopuper.popupViewSwitchBehavior != JZPopupViewSwitchBehaviorAwait;
+    BOOL highPriority = firstResponderPriority < Priority || (firstResponderPriority == Priority && self.PPAS == JZPopupPriorityAddStrategyLIFO);
     
     BOOL reinsert = NO;
     if (jump && highPriority) {
         switch (firstResponderPopuper.popupViewSwitchBehavior) {
-            case FGPopupViewSwitchBehaviorAwait:
+            case JZPopupViewSwitchBehaviorAwait:
                 ///
                 break;
-            case FGPopupViewSwitchBehaviorLatent:
+            case JZPopupViewSwitchBehaviorLatent:
                 reinsert = firstResponderPriority < Priority;
                 [self discardPopupElemnt:self.FirstFirstResponderElement];
                 break;
-            case FGPopupViewSwitchBehaviorDiscard:
+            case JZPopupViewSwitchBehaviorDiscard:
                 [self discardPopupElemnt:self.FirstFirstResponderElement];
                 break;
         }

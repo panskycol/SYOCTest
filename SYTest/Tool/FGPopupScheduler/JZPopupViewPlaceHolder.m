@@ -1,17 +1,17 @@
 //
-//  FGPopupViewPlaceHolder.m
-//  FGPopupSchedulerDemo
+//  JZPopupViewPlaceHolder.m
+//  JZPopupSchedulerDemo
 //
 //  Created by FoneG on 2021/11/8.
 //
 
-#import "FGPopupViewPlaceHolder.h"
+#import "JZPopupViewPlaceHolder.h"
 
-@interface FGPopupViewPlaceHolder ()
+@interface JZPopupViewPlaceHolder ()
 @property (nonatomic, strong) NSObject *target;
 @end
 
-@implementation FGPopupViewPlaceHolder
+@implementation JZPopupViewPlaceHolder
 
 - (void)dealloc{
     NSLog(@"asdasdas");
@@ -19,7 +19,7 @@
 
 
 + (instancetype)generatePlaceHolderWith:(NSObject *)RealPopView{
-    FGPopupViewPlaceHolder *handler = [FGPopupViewPlaceHolder new];
+    JZPopupViewPlaceHolder *handler = [JZPopupViewPlaceHolder new];
     handler.target = RealPopView;
     return handler;
 }

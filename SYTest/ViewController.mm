@@ -33,7 +33,7 @@
 
 @property (nonatomic, assign) BOOL isHiddenTabbar;
 
-@property (nonatomic, strong) FGPopupScheduler *Scheduler;
+@property (nonatomic, strong) JZPopupScheduler *Scheduler;
 
 @end
 
@@ -71,11 +71,11 @@
     
     [_btn2 addObserver:self forKeyPath:@"hidden" options:NSKeyValueObservingOptionNew context:NULL];
     
-    [self setState:FGPopupSchedulerStrategyPriority];
+    [self setState:JZPopupSchedulerStrategyPriority];
 }
 
-- (void)setState:(FGPopupSchedulerStrategy)pss{
-    FGPopupScheduler *Scheduler = [FGPopupScheduler FGPopupSchedulerGetForPSS:pss];
+- (void)setState:(JZPopupSchedulerStrategy)pss{
+    JZPopupScheduler *Scheduler = [JZPopupScheduler JZPopupSchedulerGetForPSS:pss];
     self.Scheduler = Scheduler;
 }
 
@@ -134,7 +134,7 @@
 //        JZHelpInfoAlertView *alertView5 = [[JZHelpInfoAlertView alloc] initWithFrame:self.view.bounds];
 //        alertView5.titleLb.text = @"测试5";
 //        alertView5.showSuperView = self.view;
-//        [weakself.Scheduler add:alertView5 Priority:FGPopupStrategyPriorityVeryHigh];
+//        [weakself.Scheduler add:alertView5 Priority:JZPopupStrategyPriorityVeryHigh];
 //    });
 }
 

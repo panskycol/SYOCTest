@@ -1,17 +1,17 @@
 //
-//  FGPopupList.h
-//  FGPopupSchedulerDemo
+//  JZPopupList.h
+//  JZPopupSchedulerDemo
 //
 //  Created by FoneG on 2021/6/24.
 //
 
 #import <Foundation/Foundation.h>
-#import "FGPopupSchedulerStrategyQueue.h"
+#import "JZPopupSchedulerStrategyQueue.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class PopupElement;
-@interface FGPopupList : NSObject <FGPopupSchedulerStrategyQueue>
+@interface JZPopupList : NSObject <JZPopupSchedulerStrategyQueue>
 
 @property (nonatomic, strong, readonly) PopupElement *FirstFirstResponderElement;
 
@@ -21,11 +21,11 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  弹窗数据
  */
-@property (nonatomic, strong) id<FGPopupView> data;
+@property (nonatomic, strong) id<JZPopupView> data;
 /**
- 弹窗优先级，默认FGPopupStrategyPriorityNormal
+ 弹窗优先级，默认JZPopupStrategyPriorityNormal
  */
-@property (nonatomic, assign) FGPopupStrategyPriority Priority;
+@property (nonatomic, assign) JZPopupStrategyPriority Priority;
 /**
  创建时间戳，当优先级相同时根据createStamp判断在list中的序列，默认FIFO
  */
@@ -38,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  根据弹窗和优先级初始化弹窗节点对象，createStamp默认为CFAbsoluteTimeGetCurrent()
  */
-+ (instancetype)elementWith:(id<FGPopupView>)data Priority:(FGPopupStrategyPriority)Priority;
++ (instancetype)elementWith:(id<JZPopupView>)data Priority:(JZPopupStrategyPriority)Priority;
 
 @end
 

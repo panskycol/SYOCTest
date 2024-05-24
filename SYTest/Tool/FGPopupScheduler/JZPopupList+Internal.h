@@ -1,15 +1,15 @@
 //
-//  FGPopupList+Internal.h
-//  FGPopupSchedulerDemo
+//  JZPopupList+Internal.h
+//  JZPopupSchedulerDemo
 //
 //  Created by FoneG on 2021/6/24.
 //
 
-#import "FGPopupList.h"
+#import "JZPopupList.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface FGPopupList ()
+@interface JZPopupList ()
 
 /**
  list操作方法

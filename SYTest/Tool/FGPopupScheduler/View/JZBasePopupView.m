@@ -1,6 +1,6 @@
 //
 //  BasePopView.m
-//  FGPopupSchedulerDemo
+//  JZPopupSchedulerDemo
 //
 //  Created by FoneG on 2021/6/23.
 //
@@ -14,7 +14,7 @@
 @synthesize showSuperView;
 @synthesize scheduler;
 
-- (instancetype)initWithDescrption:(NSString *)des scheduler:(nonnull FGPopupScheduler *)scheduler
+- (instancetype)initWithDescrption:(NSString *)des scheduler:(nonnull JZPopupScheduler *)scheduler
 {
     self = [super initWithFrame:CGRectMake(0, 0, 200, 300)];
     if (self) {
@@ -36,7 +36,7 @@
         label.numberOfLines = 0;
         [self addSubview:label];
         
-        _switchBehavior = FGPopupViewSwitchBehaviorAwait;
+        _switchBehavior = JZPopupViewSwitchBehaviorAwait;
         self.scheduler = scheduler;
     }
     return self;
@@ -71,7 +71,7 @@
     }
 }
 
-- (FGPopupViewSwitchBehavior)popupViewSwitchBehavior{
+- (JZPopupViewSwitchBehavior)popupViewSwitchBehavior{
     return self.switchBehavior;
 }
 

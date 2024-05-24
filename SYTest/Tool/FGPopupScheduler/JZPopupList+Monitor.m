@@ -1,21 +1,21 @@
 //
-//  FGPopupList+Monitor.m
-//  FGPopupSchedulerDemo
+//  JZPopupList+Monitor.m
+//  JZPopupSchedulerDemo
 //
 //  Created by FoneG on 2021/7/23.
 //
 
-#import "FGPopupList+Monitor.h"
+#import "JZPopupList+Monitor.h"
 #import "NSObject+SwizzleMethod.h"
 #import <objc/runtime.h>
 
-static char kFGPopupListPopupMonitorKey;
+static char kJZPopupListPopupMonitorKey;
 
-@implementation FGPopupList (Monitor)
+@implementation JZPopupList (Monitor)
 
-- (void)monitorRemoveEventWith:(id<FGPopupView>)popup{
+- (void)monitorRemoveEventWith:(id<JZPopupView>)popup{
     
-    objc_setAssociatedObject(popup, &kFGPopupListPopupMonitorKey, self, OBJC_ASSOCIATION_ASSIGN);
+    objc_setAssociatedObject(popup, &kJZPopupListPopupMonitorKey, self, OBJC_ASSOCIATION_ASSIGN);
 
     BOOL exist = NO;
     if ([popup respondsToSelector:@selector(dismissPopupView)]) {
@@ -32,30 +32,30 @@ static char kFGPopupListPopupMonitorKey;
 - (void)Monitor_dismissPopupView{
     [self Monitor_dismissPopupView];
 
-    if ([self conformsToProtocol:@protocol(FGPopupView)]) {
-        id<FGPopupView> obj = (id<FGPopupView>)self;
-        [FGPopupList tryRemovePopupView:obj];
+    if ([self conformsToProtocol:@protocol(JZPopupView)]) {
+        id<JZPopupView> obj = (id<JZPopupView>)self;
+        [JZPopupList tryRemovePopupView:obj];
     }
 }
 
-- (void)Monitor_dismissPopupViewWithAnimation:(FGPopupViewAnimationBlock)block{
-    FGPopupViewAnimationBlock Monitor_block = ^(void){
+- (void)Monitor_dismissPopupViewWithAnimation:(JZPopupViewAnimationBlock)block{
+    JZPopupViewAnimationBlock Monitor_block = ^(void){
         if (block) {
             block();
         }
-        if ([self conformsToProtocol:@protocol(FGPopupView)]) {
-            id<FGPopupView> obj = (id<FGPopupView>)self;
-            [FGPopupList tryRemovePopupView:obj];
+        if ([self conformsToProtocol:@protocol(JZPopupView)]) {
+            id<JZPopupView> obj = (id<JZPopupView>)self;
+            [JZPopupList tryRemovePopupView:obj];
         }
     };
     
     [self Monitor_dismissPopupViewWithAnimation:Monitor_block];
 }
 
-+ (void)tryRemovePopupView:(id<FGPopupView>)obj{
-    FGPopupList *list = objc_getAssociatedObject(obj, &kFGPopupListPopupMonitorKey);
++ (void)tryRemovePopupView:(id<JZPopupView>)obj{
+    JZPopupList *list = objc_getAssociatedObject(obj, &kJZPopupListPopupMonitorKey);
     if (list) {
-        objc_setAssociatedObject(obj, &kFGPopupListPopupMonitorKey, nil, OBJC_ASSOCIATION_ASSIGN);
+        objc_setAssociatedObject(obj, &kJZPopupListPopupMonitorKey, nil, OBJC_ASSOCIATION_ASSIGN);
         [list removePopupView:obj];
         /// 唤醒主线程做hitTest
         [list performSelector:@selector(hash) withObject:nil afterDelay:0];

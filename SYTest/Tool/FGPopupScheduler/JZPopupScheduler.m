@@ -1,18 +1,18 @@
 //
-//  FGPopupViewScheduler.m
+//  JZPopupViewScheduler.m
 //  FGPopViewScheduler
 //
 //  Created by FoneG on 2021/6/22.
 //
 
-#import "FGPopupScheduler.h"
+#import "JZPopupScheduler.h"
 #import <CoreFoundation/CFRunLoop.h>
-#import "FGPopupSchedulerStrategyQueue.h"
-#import "FGPopupQueue.h"
-#import "FGPopupStack.h"
-#import "FGPopupPriorityList.h"
+#import "JZPopupSchedulerStrategyQueue.h"
+#import "JZPopupQueue.h"
+#import "JZPopupStack.h"
+#import "JZPopupPriorityList.h"
 
-static NSHashTable *FGPopupSchedulers(void) {
+static NSHashTable *JZPopupSchedulers(void) {
     static NSHashTable *schedulers = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -22,22 +22,22 @@ static NSHashTable *FGPopupSchedulers(void) {
 }
 
 static void FGRunLoopObserverCallBack(CFRunLoopObserverRef observer, CFRunLoopActivity activity, void *info){
-    for (FGPopupScheduler *scheduler in FGPopupSchedulers()) {
+    for (JZPopupScheduler *scheduler in JZPopupSchedulers()) {
         if (![scheduler isEmpty]) {
             [scheduler registerFirstPopupViewResponder];
         }
     }
 }
 
-@interface FGPopupScheduler ()
+@interface JZPopupScheduler ()
 {
-    id<FGPopupSchedulerStrategyQueue> _list;
-    FGPopupSchedulerStrategy _pss;
+    id<JZPopupSchedulerStrategyQueue> _list;
+    JZPopupSchedulerStrategy _pss;
 }
 
 @end
 
-@implementation FGPopupScheduler
+@implementation JZPopupScheduler
 
 + (void)initialize{
     static dispatch_once_t onceToken;
@@ -48,38 +48,38 @@ static void FGRunLoopObserverCallBack(CFRunLoopObserverRef observer, CFRunLoopAc
     });
 }
 
-+ (FGPopupScheduler *)FGPopupSchedulerGetForPSS:(FGPopupSchedulerStrategy)pss{
++ (JZPopupScheduler *)JZPopupSchedulerGetForPSS:(JZPopupSchedulerStrategy)pss{
     
-    if (pss & FGPopupSchedulerStrategyPriority) {
-        if (pss & FGPopupSchedulerStrategyLIFO) {
+    if (pss & JZPopupSchedulerStrategyPriority) {
+        if (pss & JZPopupSchedulerStrategyLIFO) {
             static dispatch_once_t onceToken;
-            static FGPopupScheduler *scheduler = nil;
+            static JZPopupScheduler *scheduler = nil;
             dispatch_once(&onceToken, ^{
-                scheduler = [[FGPopupScheduler alloc] initWithStrategy:pss];
+                scheduler = [[JZPopupScheduler alloc] initWithStrategy:pss];
             });
             return scheduler;
         }else{
             static dispatch_once_t onceToken;
-            static FGPopupScheduler *scheduler = nil;
+            static JZPopupScheduler *scheduler = nil;
             dispatch_once(&onceToken, ^{
-                scheduler = [[FGPopupScheduler alloc] initWithStrategy:pss];
+                scheduler = [[JZPopupScheduler alloc] initWithStrategy:pss];
             });
             return scheduler;
         }
     }
-    else if (pss == FGPopupSchedulerStrategyFIFO) {
+    else if (pss == JZPopupSchedulerStrategyFIFO) {
         static dispatch_once_t onceToken;
-        static FGPopupScheduler *scheduler = nil;
+        static JZPopupScheduler *scheduler = nil;
         dispatch_once(&onceToken, ^{
-            scheduler = [[FGPopupScheduler alloc] initWithStrategy:pss];
+            scheduler = [[JZPopupScheduler alloc] initWithStrategy:pss];
         });
         return scheduler;
     }
-    else if(pss == FGPopupSchedulerStrategyLIFO){
+    else if(pss == JZPopupSchedulerStrategyLIFO){
         static dispatch_once_t onceToken;
-        static FGPopupScheduler *scheduler = nil;
+        static JZPopupScheduler *scheduler = nil;
         dispatch_once(&onceToken, ^{
-            scheduler = [[FGPopupScheduler alloc] initWithStrategy:pss];
+            scheduler = [[JZPopupScheduler alloc] initWithStrategy:pss];
         });
         return scheduler;
     }else{
@@ -87,26 +87,26 @@ static void FGRunLoopObserverCallBack(CFRunLoopObserverRef observer, CFRunLoopAc
     }
 }
 
-- (instancetype)initWithStrategy:(FGPopupSchedulerStrategy)pss{
+- (instancetype)initWithStrategy:(JZPopupSchedulerStrategy)pss{
     if (self = [super init]) {
-        [FGPopupSchedulers() addObject:self];
+        [JZPopupSchedulers() addObject:self];
         [self setSchedulerStrategy:pss];
     }
     return self;
 }
 
-- (void)setSchedulerStrategy:(FGPopupSchedulerStrategy)pss{
+- (void)setSchedulerStrategy:(JZPopupSchedulerStrategy)pss{
     _pss = pss;
-    if (pss & FGPopupSchedulerStrategyPriority) {
-        FGPopupPriorityList *PriorityList = [[FGPopupPriorityList alloc] init];
-        PriorityList.PPAS = pss & FGPopupSchedulerStrategyLIFO ? FGPopupPriorityAddStrategyLIFO : FGPopupPriorityAddStrategyFIFO;
+    if (pss & JZPopupSchedulerStrategyPriority) {
+        JZPopupPriorityList *PriorityList = [[JZPopupPriorityList alloc] init];
+        PriorityList.PPAS = pss & JZPopupSchedulerStrategyLIFO ? JZPopupPriorityAddStrategyLIFO : JZPopupPriorityAddStrategyFIFO;
         _list = PriorityList;
     }
-    else if (pss == FGPopupSchedulerStrategyFIFO) {
-        _list = [[FGPopupQueue alloc] init];
+    else if (pss == JZPopupSchedulerStrategyFIFO) {
+        _list = [[JZPopupQueue alloc] init];
     }
-    else if(pss == FGPopupSchedulerStrategyLIFO){
-        _list = [[FGPopupStack alloc] init];
+    else if(pss == JZPopupSchedulerStrategyLIFO){
+        _list = [[JZPopupStack alloc] init];
     }
 }
 
@@ -117,14 +117,14 @@ static void FGRunLoopObserverCallBack(CFRunLoopObserverRef observer, CFRunLoopAc
     });
 }
 
-- (void)add:(id<FGPopupView>)view{
-    [self add:view Priority:FGPopupStrategyPriorityNormal];
+- (void)add:(id<JZPopupView>)view{
+    [self add:view Priority:JZPopupStrategyPriorityNormal];
 }
 
 
 #pragma mark - List Operation method
 
-- (void)add:(id<FGPopupView>)view  Priority:(FGPopupStrategyPriority)Priority{
+- (void)add:(id<JZPopupView>)view  Priority:(JZPopupStrategyPriority)Priority{
     dispatch_async_main_safe(^(){
         view.scheduler = self;
         [self->_list addPopupView:view Priority:Priority];
@@ -132,7 +132,7 @@ static void FGRunLoopObserverCallBack(CFRunLoopObserverRef observer, CFRunLoopAc
     });
 }
 
-- (void)remove:(id<FGPopupView>)view{
+- (void)remove:(id<JZPopupView>)view{
     dispatch_async_main_safe(^(){
         [self->_list removePopupView:view];
     });

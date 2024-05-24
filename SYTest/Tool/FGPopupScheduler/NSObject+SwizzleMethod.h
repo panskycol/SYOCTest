@@ -1,6 +1,6 @@
 //
 //  NSObject+SwizzleMethod.h
-//  FGPopupSchedulerDemo
+//  JZPopupSchedulerDemo
 //
 //  Created by FoneG on 2021/7/23.
 //
