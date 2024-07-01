@@ -11,5 +11,8 @@
 @interface ViewController : UIViewController
 
 
++ (void)onClickA;
++ (void)onClickB;
+
 @end
 

@@ -61,14 +61,15 @@
     Method origMethod = class_getInstanceMethod(class, originalSelector);
     Method replaceMeathod = class_getInstanceMethod(class, replaceSelector);
     
-    // class_addMethod:如果发现方法已经存在，会失败返回，也可以用来做检查用,我们这里是为了避免源方法没有实现的情况;如果方法没有存在,我们则先尝试添加被替换的方法的实现
+    /// class_addMethod:如果发现方法已经存在，会失败返回，也可以用来做检查用,我们这里是为了避免源方法没有实现的情况;
+    /// 如果方法没有存在,我们则先尝试添加被替换的方法的实现
     BOOL didAddMethod = class_addMethod(class,
                                         originalSelector,
                                         method_getImplementation(replaceMeathod),
                                         method_getTypeEncoding(replaceMeathod));
     if (didAddMethod) {
-        // 原方法未实现，则替换原方法防止crash
-        // 该方法里如果origMethod为空，则代替replaceSelector的实现方法失败，如果不为空，则会替换掉replaceSelector的实现方法
+        /// 原方法未实现，则替换原方法防止crash
+        /// 该方法里如果origMethod为空，则代替replaceSelector的实现方法失败，如果不为空，则会替换掉replaceSelector的实现方法
         class_replaceMethod(class,
                             replaceSelector,
                             method_getImplementation(origMethod),
@@ -78,6 +79,11 @@
         method_exchangeImplementations(origMethod, replaceMeathod);
     }
 }
+
+/// A实现，B没实现，AB交换不成功，A不变，B奔溃
+/// A没实现，B实现，A交换成功,B不变，AB都是执行B方法，都不会奔溃
+
+///*************以上所有结论已代码论证*************///
 
 + (void)wo_classSwizzleMethodWithClass:(Class _Nonnull )klass orginalMethod:(SEL _Nonnull )originalSelector replaceMethod:(SEL _Nonnull )replaceSelector {
     

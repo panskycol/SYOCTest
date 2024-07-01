@@ -13,10 +13,12 @@ target 'SYTest' do
   pod 'WCDB.objc'
   pod 'FMDB'
   pod 'ReactiveObjC'
-#  pod 'Logan', '~> 1.2.8'
+  pod 'Logan', '~> 1.2.8'
   pod 'AFNetworking'
+#  pod 'YYText'
   pod 'YYKit'
   pod 'JZUIKit'
   pod 'SDWebImage'
   pod 'KVOController'
+  pod 'Aspects'
 end
