@@ -21,9 +21,14 @@
 #import "JZPopupViewPlaceHolder.h"
 #import "NSString+HTML.h"
 
-//extern "C" {
-//    #import <Logan/Logan.h>
-//}
+typedef enum : NSUInteger {
+    LoganTypeAction = 1,  //用户行为日志
+    LoganTypeNetwork = 2, //网络级日志
+} LoganType;
+
+extern "C" {
+    #import <Logan/Logan.h>
+}
 
 @interface ViewController ()<WKNavigationDelegate>
 
@@ -36,7 +41,7 @@
 @property (nonatomic, assign) BOOL isHiddenTabbar;
 
 @property (nonatomic, strong) JZPopupScheduler *Scheduler;
-
+@property (nonatomic, assign) NSInteger count;
 @end
 
 @implementation ViewController
@@ -78,12 +83,13 @@
     YYLabel *contetLb = [[YYLabel alloc] initWithFrame:CGRectMake(0, 400, UI_SCREEN_WIDTH, 100)];
     [self.view addSubview:contetLb];
     
-    
-//    [self wo_instanceSwizzleMethod:@selector(onClickA) replaceMethod:@selector(onClickB)];
-//    [NSObject wo_classSwizzleMethodWithClass:[self class] orginalMethod:@selector(onClickA) replaceMethod:@selector(onClickB)];
-    
-//    YYWeakProxy *selfProxy = [YYWeakProxy proxyWithTarget:self];
-//    [(ViewController *)selfProxy onClickA];
+    NSData *keydata = [@"0123456789012345" dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *ivdata = [@"0123456789012345" dataUsingEncoding:NSUTF8StringEncoding];
+    uint64_t file_max = 10 * 1024 * 1024;
+    // logan初始化，传入16位key，16位iv，写入文件最大大小(byte)
+    loganInit(keydata, ivdata, file_max);
+    // 将日志输出至控制台
+    loganUseASL(YES);
 }
 
 
@@ -96,9 +102,6 @@
     
     NSLog(@"BBBBBB");
 }
-
-
-
 
 - (void)setState:(JZPopupSchedulerStrategy)pss{
     JZPopupScheduler *Scheduler = [JZPopupScheduler JZPopupSchedulerGetForPSS:pss];
@@ -183,6 +186,9 @@
 
 - (void)onClick2{
     [ViewController onClickB];
+    
+    _count++;
+    [self eventLogType:LoganTypeAction forLabel:[NSString stringWithFormat:@"%ld",_count]];
 }
 
 - (void)sy_Test2{
@@ -196,6 +202,20 @@
     NSLog(@"======3333");
 }
 
+
+/**
+ 用户行为日志
+
+ @param eventType 事件类型
+ @param label 描述
+ */
+- (void)eventLogType:(NSInteger)eventType forLabel:(NSString *)label {
+    NSMutableString *s = [NSMutableString string];
+    [s appendFormat:@"事件类型%d\t", (int)eventType];
+    [s appendFormat:@"点击次数%@\t", label];
+    logan(eventType, s);
+    loganFlush();
+}
 
 
 
