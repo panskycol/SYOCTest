@@ -20,6 +20,13 @@
 #import "JZHelpInfoAlertView.h"
 #import "JZPopupViewPlaceHolder.h"
 #import "NSString+HTML.h"
+#import "SYPersonModel.h"
+#import <Aspects/Aspects.h>
+#import "NSObject+KVO.h"
+
+#import <malloc/malloc.h>
+#import <objc/runtime.h>
+#import "SYTestView.h"
 
 typedef enum : NSUInteger {
     LoganTypeAction = 1,  //用户行为日志
@@ -45,6 +52,9 @@ extern "C" {
 @end
 
 @implementation ViewController
+{
+    dispatch_semaphore_t sem;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -90,8 +100,65 @@ extern "C" {
     loganInit(keydata, ivdata, file_max);
     // 将日志输出至控制台
     loganUseASL(YES);
+    
+//    [self wo_instanceSwizzleMethod:@selector(sy_Test2) replaceMethod:@selector(sy_Test3)];
+//    [self aspect_hookSelector:@selector(sy_Test2) withOptions:AspectOptionAutomaticRemoval usingBlock:^(void){
+//        NSLog(@"=====aspect");
+//    } error:nil];
+    
+    SYTestView *testView = [[SYTestView alloc] initWithFrame:CGRectMake(200, 100, 200, 300)];
+    testView.backgroundColor = [UIColor yellowColor];
+    [self.view addSubview:testView];
 }
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context{
+    
+    NSLog(@"");
+}
+
+void printProperties(Class cls) {
+    unsigned int propertyCount;
+    objc_property_t *properties = class_copyPropertyList(cls, &propertyCount);
+    
+    for (unsigned int i = 0; i < propertyCount; i++) {
+        objc_property_t property = properties[i];
+        
+        // Property name
+        const char *name = property_getName(property);
+        printf("Property: %s\n", name);
+        
+        // Property attributes
+//        const char *attributes = property_getAttributes(property);
+//        printf("Attributes: %s\n", attributes);
+        
+        // To get more detailed info about attributes, we can parse the attribute string.
+        // Here is a basic breakdown of attribute string components
+//        unsigned int attributeCount;
+//        objc_property_attribute_t *attrs = property_copyAttributeList(property, &attributeCount);
+//        
+//        for (unsigned int j = 0; j < attributeCount; j++) {
+//            printf(" - Attribute name: %s, value: %s\n", attrs[j].name, attrs[j].value);
+//        }
+        
+//        free(attrs);
+        printf("\n");
+    }
+    
+    free(properties);
+}
+
+
+- (void)onClick1{
+    [SYPersonModel shareInstance].age = 1;
+    dispatch_semaphore_signal(sem);
+}
+
+- (void)onClick2{
+    SYGestureViewController *vc = [[SYGestureViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+    
+    SYPersonModel *model = [[SYPersonModel alloc] init];
+}
 
 + (void)onClickA{
     
@@ -106,11 +173,6 @@ extern "C" {
 - (void)setState:(JZPopupSchedulerStrategy)pss{
     JZPopupScheduler *Scheduler = [JZPopupScheduler JZPopupSchedulerGetForPSS:pss];
     self.Scheduler = Scheduler;
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context{
-    
-    NSLog(@"");
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -142,58 +204,10 @@ extern "C" {
     NSLog(@"111111");
 }
 
-- (void)onClick1{
-
-    [ViewController onClickA];
-//    [self startRequest];
-    
-//    JZHelpInfoAlertView *alertView = [[JZHelpInfoAlertView alloc] initWithFrame:self.view.bounds];
-//    alertView.switchBehavior = JZPopupViewSwitchBehaviorDiscard;
-//    JZHelpInfoAlertView *alertView2 = [[JZHelpInfoAlertView alloc] initWithFrame:self.view.bounds];
-//    alertView2.titleLb.text = @"测试2";
-//    JZHelpInfoAlertView *alertView3 = [[JZHelpInfoAlertView alloc] initWithFrame:self.view.bounds];
-//    alertView3.titleLb.text = @"测试3";
-//    JZHelpInfoAlertView *alertView4 = [[JZHelpInfoAlertView alloc] initWithFrame:self.view.bounds];
-//    alertView4.titleLb.text = @"测试4";
-//    
-//    UIAlertController *vc = [UIAlertController alertControllerWithTitle:@"系统弹窗" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-//    JZPopupViewPlaceHolder *AlertPlaceHolder = [JZPopupViewPlaceHolder generatePlaceHolderWith:vc];
-//    __weak JZPopupViewPlaceHolder* weakHolder = AlertPlaceHolder;
-//    [vc addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-//        [_Scheduler remove:weakHolder];
-//    }]];
-//    AlertPlaceHolder.showPopupViewCallBlock = ^(NSObject *__weak  _Nonnull weakObj) {
-//        [self presentViewController:(UIAlertController *)weakObj animated:YES completion:nil];
-//    };
-//    AlertPlaceHolder.removePopupViewCallBlock = ^(NSObject *__weak  _Nonnull weakObj) {
-//        [(UIAlertController *)weakObj dismissViewControllerAnimated:YES completion:nil];
-//    };
-//    
-//    [_Scheduler add:alertView Priority:JZPopupStrategyPriorityVeryHigh];
-//    [_Scheduler add:alertView2 Priority:JZPopupStrategyPriorityHigh];
-//    [_Scheduler add:alertView3 Priority:JZPopupStrategyPriorityLow];
-//    [_Scheduler add:alertView4 Priority:JZPopupStrategyPriorityLow];
-//    [_Scheduler add:AlertPlaceHolder];
-//    
-//    WeakSelf(self);
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        JZHelpInfoAlertView *alertView5 = [[JZHelpInfoAlertView alloc] initWithFrame:self.view.bounds];
-//        alertView5.titleLb.text = @"测试5";
-//        alertView5.showSuperView = self.view;
-//        [weakself.Scheduler add:alertView5 Priority:JZPopupStrategyPriorityNormal];
-//    });
-}
-
-- (void)onClick2{
-    [ViewController onClickB];
-    
-    _count++;
-    [self eventLogType:LoganTypeAction forLabel:[NSString stringWithFormat:@"%ld",_count]];
-}
 
 - (void)sy_Test2{
 //    {"c":"clogan header","f":1,"l":1716356048817,"n":"clogan","i":1,"m":true}
-    NSLog(@"======3333");
+    NSLog(@"======22222");
 }
 
 

@@ -94,9 +94,9 @@
     [self.realWebView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
     [self addSubview:self.realWebView];
     
-//    @weakify(self)
+    @weakify(self)
     self.scriptMessageHandler.messageHandler = ^(WKScriptMessage *message) {
-//        @strongify(self)
+        @strongify(self)
         [self didReceiveScriptMessage:message];
     };
     

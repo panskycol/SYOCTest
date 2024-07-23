@@ -9,4 +9,9 @@
 
 @implementation SYStudentModel
 
++ (void)load{
+    
+    NSLog(@"======SYStudentModel");
+}
+
 @end

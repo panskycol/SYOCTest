@@ -6,10 +6,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SYPersonModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SYStudentModel : NSObject
+@interface SYStudentModel : SYPersonModel
 
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *year;
