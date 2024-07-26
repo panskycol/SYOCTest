@@ -44,11 +44,18 @@
 
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event{
     
+    NSLog(@"====%s == name:%@",__func__,self.name);
+    if ([self.name isEqualToString:@"C"]) {  //遇到C视图就会被穿透过去，下面C的touches事件不再走
+        return nil;
+    }
+    
     return [super hitTest:point withEvent:event];
 }
 
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    
+    NSLog(@"%s == name:%@",__func__,self.name);
     
     [super touchesBegan:touches withEvent:event];
 }

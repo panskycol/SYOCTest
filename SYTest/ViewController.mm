@@ -108,7 +108,18 @@ typedef enum : NSUInteger {
     
     SYTestView *testView = [[SYTestView alloc] initWithFrame:CGRectMake(200, 100, 200, 300)];
     testView.backgroundColor = [UIColor yellowColor];
+    testView.name = @"A";
     [self.view addSubview:testView];
+    
+    SYTestView *testViewB = [[SYTestView alloc] initWithFrame:CGRectMake(200, 100, 150, 250)];
+    testViewB.backgroundColor = [UIColor blueColor];
+    testViewB.name = @"B";
+    [self.view addSubview:testViewB];
+   
+    SYTestView *testViewC = [[SYTestView alloc] initWithFrame:CGRectMake(200, 100, 100, 200)];
+    testViewC.backgroundColor = [UIColor redColor];
+    testViewC.name = @"C";
+    [self.view addSubview:testViewC];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context{
