@@ -57,7 +57,7 @@
 		5950482C2C046C260041033B /* TFHpple.m in Sources */ = {isa = PBXBuildFile; fileRef = 595048282C046C250041033B /* TFHpple.m */; };
 		5950482D2C046C260041033B /* TFHppleElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 5950482B2C046C260041033B /* TFHppleElement.m */; };
 		595048302C046C430041033B /* XPathQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 5950482F2C046C430041033B /* XPathQuery.m */; };
-		595218FA2C4E036000A862E6 /* SYTestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 595218F92C4E036000A862E6 /* SYTestView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		595218FA2C4E036000A862E6 /* SYTestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 595218F92C4E036000A862E6 /* SYTestView.m */; };
 		59743B742BCD1604009D49CC /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 59743B4C2BCD1604009D49CC /* LICENSE */; };
 		59743B752BCD1604009D49CC /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 59743B4D2BCD1604009D49CC /* README.md */; };
 		59743B762BCD1604009D49CC /* UIAlertView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 59743B4F2BCD1604009D49CC /* UIAlertView+AFNetworking.m */; };

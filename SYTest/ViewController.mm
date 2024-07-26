@@ -33,9 +33,9 @@ typedef enum : NSUInteger {
     LoganTypeNetwork = 2, //网络级日志
 } LoganType;
 
-extern "C" {
-    #import <Logan/Logan.h>
-}
+//extern "C" {
+//    #import <Logan/Logan.h>
+//}
 
 @interface ViewController ()<WKNavigationDelegate>
 
@@ -97,9 +97,9 @@ extern "C" {
     NSData *ivdata = [@"0123456789012345" dataUsingEncoding:NSUTF8StringEncoding];
     uint64_t file_max = 10 * 1024 * 1024;
     // logan初始化，传入16位key，16位iv，写入文件最大大小(byte)
-    loganInit(keydata, ivdata, file_max);
+//    loganInit(keydata, ivdata, file_max);
     // 将日志输出至控制台
-    loganUseASL(YES);
+//    loganUseASL(YES);
     
 //    [self wo_instanceSwizzleMethod:@selector(sy_Test2) replaceMethod:@selector(sy_Test3)];
 //    [self aspect_hookSelector:@selector(sy_Test2) withOptions:AspectOptionAutomaticRemoval usingBlock:^(void){
@@ -227,8 +227,8 @@ void printProperties(Class cls) {
     NSMutableString *s = [NSMutableString string];
     [s appendFormat:@"事件类型%d\t", (int)eventType];
     [s appendFormat:@"点击次数%@\t", label];
-    logan(eventType, s);
-    loganFlush();
+//    logan(eventType, s);
+//    loganFlush();
 }
 
 
