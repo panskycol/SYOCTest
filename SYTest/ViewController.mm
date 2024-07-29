@@ -49,6 +49,10 @@ typedef enum : NSUInteger {
 
 @property (nonatomic, strong) JZPopupScheduler *Scheduler;
 @property (nonatomic, assign) NSInteger count;
+
+@property (nonatomic, strong) NSCondition *condition;
+@property (nonatomic, strong) NSMutableArray *collector;
+
 @end
 
 @implementation ViewController
@@ -106,20 +110,65 @@ typedef enum : NSUInteger {
 //        NSLog(@"=====aspect");
 //    } error:nil];
     
-    SYTestView *testView = [[SYTestView alloc] initWithFrame:CGRectMake(200, 100, 200, 300)];
-    testView.backgroundColor = [UIColor yellowColor];
-    testView.name = @"A";
-    [self.view addSubview:testView];
+    self.collector = [NSMutableArray array];
+    self.condition = [NSCondition new];
     
-    SYTestView *testViewB = [[SYTestView alloc] initWithFrame:CGRectMake(200, 100, 150, 250)];
-    testViewB.backgroundColor = [UIColor blueColor];
-    testViewB.name = @"B";
-    [self.view addSubview:testViewB];
-   
-    SYTestView *testViewC = [[SYTestView alloc] initWithFrame:CGRectMake(200, 100, 100, 200)];
-    testViewC.backgroundColor = [UIColor redColor];
-    testViewC.name = @"C";
-    [self.view addSubview:testViewC];
+    [[[NSThread alloc] initWithTarget:self selector:@selector(produce) object:nil] start];
+//    [[[NSThread alloc] initWithTarget:self selector:@selector(consumer) object:nil] start];
+}
+
+- (void)conditionLockTest {
+    NSConditionLock *conditionLock = [[NSConditionLock alloc] initWithCondition:2];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+       [conditionLock lockWhenCondition:1];
+       NSLog(@"线程1");
+       [conditionLock unlockWithCondition:0];
+    });
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+       [conditionLock lockWhenCondition:2];
+       NSLog(@"线程2");
+       [conditionLock unlockWithCondition:1];
+    });
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+       [conditionLock lock];
+       NSLog(@"线程3");
+       [conditionLock unlock];
+    });
+}
+
+-(void)produce{
+    while (self.count < 10) {
+        NSLog(@"===准备生产:iPhone");
+        [self.condition lock];
+        if (self.collector.count > 0 ) {
+            NSLog(@"===生产等待，库存：%ld",self.collector.count);
+            [self.condition wait];
+        }
+        [self.collector addObject:@"iPhone"];
+        NSLog(@"===生产:iPhone");
+        [self.condition signal];
+        [self.condition unlock];
+        self.count ++;
+        NSLog(@"===成功生产");
+    }
+}
+
+-(void)consumer{
+    while (self.count < 10) {
+        NSLog(@"===准备买入iPhone");
+        [self.condition lock];
+        if (self.collector.count == 0 ) {
+            NSLog(@"===没有库存");
+            [self.condition wait];
+        }
+        
+        NSString *item = [self.collector objectAtIndex:0];
+        NSLog(@"===买入:%@",item);
+        [self.collector removeObjectAtIndex:0];
+        [self.condition signal];
+        [self.condition unlock];
+        NSLog(@"===成功买入");
+    }
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context{
