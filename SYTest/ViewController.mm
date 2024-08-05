@@ -23,10 +23,15 @@
 #import "SYPersonModel.h"
 #import <Aspects/Aspects.h>
 #import "NSObject+KVO.h"
+#import <UserNotifications/UserNotifications.h>
+
+#import <AVFoundation/AVFoundation.h>
+#import <AVFAudio/AVFAudio.h>
 
 #import <malloc/malloc.h>
 #import <objc/runtime.h>
 #import "SYTestView.h"
+#import "SharkfoodMuteSwitchDetector.h"
 
 typedef enum : NSUInteger {
     LoganTypeAction = 1,  //用户行为日志
@@ -52,6 +57,9 @@ typedef enum : NSUInteger {
 
 @property (nonatomic, strong) NSCondition *condition;
 @property (nonatomic, strong) NSMutableArray *collector;
+
+@property (nonatomic, strong) AVAudioPlayer *audioPlayer;
+@property (nonatomic, strong) SharkfoodMuteSwitchDetector *muteDetector;
 
 @end
 
@@ -97,6 +105,15 @@ typedef enum : NSUInteger {
     YYLabel *contetLb = [[YYLabel alloc] initWithFrame:CGRectMake(0, 400, UI_SCREEN_WIDTH, 100)];
     [self.view addSubview:contetLb];
     
+//    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+//    [manager GET:@"http://192.168.1.35:8800/get_time" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+//        
+//        NSLog(@"");
+//    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+//        
+//        NSLog(@"");
+//    }];
+    
     NSData *keydata = [@"0123456789012345" dataUsingEncoding:NSUTF8StringEncoding];
     NSData *ivdata = [@"0123456789012345" dataUsingEncoding:NSUTF8StringEncoding];
     uint64_t file_max = 10 * 1024 * 1024;
@@ -110,11 +127,85 @@ typedef enum : NSUInteger {
 //        NSLog(@"=====aspect");
 //    } error:nil];
     
-    self.collector = [NSMutableArray array];
-    self.condition = [NSCondition new];
     
-    [[[NSThread alloc] initWithTarget:self selector:@selector(produce) object:nil] start];
-//    [[[NSThread alloc] initWithTarget:self selector:@selector(consumer) object:nil] start];
+    AVAudioSession *session = [AVAudioSession sharedInstance];
+    [session setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionMixWithOthers error:nil];
+    [session setActive:YES error:nil];
+    
+    
+}
+
+- (void)playAudio {
+    // 获取音频文件路径
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"calll_ring" ofType:@"mp3"];
+    NSURL *url = [NSURL fileURLWithPath:path];
+
+    // 创建 AVAudioPlayer 实例
+    NSError *error = nil;
+    self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
+    self.audioPlayer.numberOfLoops = 2;
+    // 检查是否有错误
+    if (error) {
+        NSLog(@"Error creating audio player: %@", [error localizedDescription]);
+    } else {
+        [self.audioPlayer prepareToPlay];
+        [self.audioPlayer play];
+    }
+    
+}
+
+- (void)addLocalNotice {
+    
+    @weakify(self);
+    self.muteDetector.silentNotify = ^(BOOL silent){
+        @strongify(self);
+        [self playAudio];
+    };
+    // 开启静音检测
+    [self.muteDetector startCheckMute];
+    
+    if (@available(iOS 10.0, *)) {
+        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+        UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+        // 标题
+        content.title = @"测试标题";
+        content.subtitle = @"测试通知副标题";
+        // 内容
+        content.body = @"测试通知的具体内容";
+        // 添加自定义声音
+        content.sound = [UNNotificationSound soundNamed:@"mute.caf"];
+        // 角标 （我这里测试的角标无效，暂时没找到原因）
+        content.badge = @1;
+
+        NSString *identifier = @"noticeId2";
+        UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:identifier content:content trigger:nil];
+        
+        [center addNotificationRequest:request withCompletionHandler:^(NSError *_Nullable error) {
+            if (error) {
+                NSLog(@"添加推送失败");
+            }else{
+                NSLog(@"成功添加推送");
+            }
+           
+        }];
+        
+        for (NSInteger i = 1; i < 9; i++) {
+            [self performSelector:@selector(startScheduleNoti) withObject:nil afterDelay:i*6];
+        }
+    }
+}
+
+- (void)startScheduleNoti{
+    [[UNUserNotificationCenter currentNotificationCenter] getDeliveredNotificationsWithCompletionHandler:^(NSArray<UNNotification *> * _Nonnull notifications) {
+        for (UNNotification *noti in notifications) {
+            if ([noti.request.identifier isEqualToString:@"noticeId2"]) {
+                [self.muteDetector startCheckMute];
+                [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:noti.request withCompletionHandler:nil];
+                NSLog(@"重复发");
+                break;
+            }
+        }
+    }];
 }
 
 - (void)conditionLockTest {
@@ -209,8 +300,8 @@ void printProperties(Class cls) {
 
 
 - (void)onClick1{
-    [SYPersonModel shareInstance].age = 1;
-    dispatch_semaphore_signal(sem);
+    [self addLocalNotice];
+//    [self playAudio];
 }
 
 - (void)onClick2{
@@ -426,6 +517,13 @@ void printProperties(Class cls) {
     [self.view addSubview:webView];
     webView.detailUrlStr = urlString;
     [webView loadWebView];
+}
+
+- (SharkfoodMuteSwitchDetector *)muteDetector {
+    if (!_muteDetector) {
+        _muteDetector = [SharkfoodMuteSwitchDetector shared];
+    }
+    return _muteDetector;
 }
 
 #pragma mark - WKNavigationDelegate

@@ -10,8 +10,9 @@
 #import "WOCrashProtectorManager.h"
 #import "JZBasePopupView.h"
 #import <Matrix/Matrix.h>
+#import <UserNotifications/UserNotifications.h>
 
-@interface AppDelegate ()<MatrixPluginListenerDelegate>
+@interface AppDelegate ()<MatrixPluginListenerDelegate,UNUserNotificationCenterDelegate>
 
 @end
 
@@ -56,7 +57,35 @@
     [memoryStatPlugin start]; // 开启内存监控
     [fpsMonitorPlugin start]; // 开启 fps 监控
     
+    [self registerAPN];
+    
     return YES;
+}
+
+// 注册通知
+- (void)registerAPN {
+
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    center.delegate = self;
+    [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert + UNAuthorizationOptionSound) completionHandler:^(BOOL granted, NSError * _Nullable error) {
+        
+    }];
+}
+
+// 接收到通知时触发的方法
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler {
+    
+    NSLog(@"");
+    
+    completionHandler(UNNotificationPresentationOptionAlert + UNNotificationPresentationOptionSound);
+}
+
+// 点击通知时触发的方法
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler {
+    
+    NSLog(@"");
+    
+    completionHandler();
 }
 
 - (void)onReportIssue:(MatrixIssue *)issue{
