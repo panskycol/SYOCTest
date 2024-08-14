@@ -21,4 +21,5 @@ target 'SYTest' do
   pod 'SDWebImage'
   pod 'KVOController'
   pod 'Aspects'
+  pod 'PLCrashReporter'
 end

@@ -11,6 +11,7 @@
 #import "JZBasePopupView.h"
 #import <Matrix/Matrix.h>
 #import <UserNotifications/UserNotifications.h>
+#import <CrashReporter/CrashReporter.h>
 
 @interface AppDelegate ()<MatrixPluginListenerDelegate,UNUserNotificationCenterDelegate>
 

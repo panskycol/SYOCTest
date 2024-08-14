@@ -344,30 +344,30 @@
 		59079EFA2B8F01B6008FC21A /* SYTest */ = {
 			isa = PBXGroup;
 			children = (
-				59E8EB312C33CB84006ED2AD /* Matrix.framework */,
-				593A9BB42BFD9F6F0058832C /* Tool */,
-				592D556B2B999C0E00244945 /* TestCode */,
 				59079EFB2B8F01B6008FC21A /* AppDelegate.h */,
 				59079EFC2B8F01B6008FC21A /* AppDelegate.m */,
+				59079F072B8F01B9008FC21A /* Assets.xcassets */,
+				5917CD6B2C60CFAE00FBE60F /* calll_ring.mp3 */,
+				59079F0C2B8F01B9008FC21A /* Info.plist */,
+				59079F092B8F01B9008FC21A /* LaunchScreen.storyboard */,
 				592D55712B999C4E00244945 /* Macro.h */,
-				593A9FED2BFDF6290058832C /* SYToolManager.h */,
-				59079F012B8F01B6008FC21A /* ViewController.h */,
-				59EE8AD12B90540F00375ABE /* ViewController.mm */,
-				593A9FEE2BFDF6290058832C /* SYToolManager.m */,
-				59B2D5A62BB2D719005F47EC /* SYGestureViewController.h */,
-				59B2D5A72BB2D719005F47EC /* SYGestureViewController.m */,
-				59EE8ACC2B90367300375ABE /* Sample.h */,
+				59079F0D2B8F01B9008FC21A /* main.m */,
+				59079F042B8F01B6008FC21A /* Main.storyboard */,
+				59E8EB312C33CB84006ED2AD /* Matrix.framework */,
+				5917CD6F2C60D66100FBE60F /* mute.caf */,
 				59803D652C378FFB004D3FE2 /* NSObject+KVO.h */,
 				59803D662C378FFB004D3FE2 /* NSObject+KVO.m */,
-				59EE8AD32B90543F00375ABE /* Sample.mm */,
-				5917CD6B2C60CFAE00FBE60F /* calll_ring.mp3 */,
-				5917CD6F2C60D66100FBE60F /* mute.caf */,
-				59079F042B8F01B6008FC21A /* Main.storyboard */,
-				59079F072B8F01B9008FC21A /* Assets.xcassets */,
-				59079F092B8F01B9008FC21A /* LaunchScreen.storyboard */,
-				59079F0C2B8F01B9008FC21A /* Info.plist */,
-				59079F0D2B8F01B9008FC21A /* main.m */,
 				593A9FEB2BFDF1AF0058832C /* PrefixHeader.pch */,
+				59EE8ACC2B90367300375ABE /* Sample.h */,
+				59EE8AD32B90543F00375ABE /* Sample.mm */,
+				59B2D5A62BB2D719005F47EC /* SYGestureViewController.h */,
+				59B2D5A72BB2D719005F47EC /* SYGestureViewController.m */,
+				593A9FED2BFDF6290058832C /* SYToolManager.h */,
+				593A9FEE2BFDF6290058832C /* SYToolManager.m */,
+				592D556B2B999C0E00244945 /* TestCode */,
+				593A9BB42BFD9F6F0058832C /* Tool */,
+				59079F012B8F01B6008FC21A /* ViewController.h */,
+				59EE8AD12B90540F00375ABE /* ViewController.mm */,
 			);
 			path = SYTest;
 			sourceTree = "<group>";
@@ -606,6 +606,7 @@
 				59079EF52B8F01B6008FC21A /* Frameworks */,
 				59079EF62B8F01B6008FC21A /* Resources */,
 				97BA325BC66C6E5EB299D80C /* [CP] Embed Pods Frameworks */,
+				06EDD09B66DA330817A608DE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -728,6 +729,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		06EDD09B66DA330817A608DE /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SYTest/Pods-SYTest-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SYTest/Pods-SYTest-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SYTest/Pods-SYTest-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		5EC7D5DA93BD06173627A936 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1017,9 +1035,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = JUNW5V8XD9;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = U97255M84A;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1040,8 +1060,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.test.ios.icall.SYTest;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hunlian.jinzuan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = pinlianDev;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1053,9 +1075,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = JUNW5V8XD9;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = U97255M84A;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1076,8 +1100,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.test.ios.icall.SYTest;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hunlian.jinzuan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = pinlianDev;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

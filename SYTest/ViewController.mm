@@ -32,6 +32,7 @@
 #import <objc/runtime.h>
 #import "SYTestView.h"
 #import "SharkfoodMuteSwitchDetector.h"
+#import <CrashReporter/CrashReporter.h>
 
 typedef enum : NSUInteger {
     LoganTypeAction = 1,  //用户行为日志
@@ -73,15 +74,30 @@ typedef enum : NSUInteger {
     // Do any additional setup after loading the view.
     [UIApplication sharedApplication].keyWindow.backgroundColor = [UIColor whiteColor];
     
-    _database = [[WCTDatabase alloc] initWithPath:@"~/Intermediate/Directories/Will/Be/Created/sample.db"];
+    //全局监控
+    [WCTDatabase globalTraceError:^(WCTError *error) {
+        assert(error.level != WCTErrorLevelFatal);
+        NSLog(@"数据库WCDB错误=%@", error);
+    }];
+    
+    //全局监控
+    [WCTDatabase globalTraceSQL:^(WCTTag, NSString * path, uint64_t, NSString * sql) {
+        
+        NSLog(@"");
+    }];
+    
+    NSString *docDir = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"JZDB"];
+    NSString *dbFilePath = [docDir stringByAppendingPathComponent:@"sample.db"];
+    
+    _database = [[WCTDatabase alloc] initWithPath:dbFilePath];
     // 以下代码等效于 SQL：CREATE TABLE IF NOT EXISTS sampleTable(identifier INTEGER, description TEXT)
     
     NSData* password = [@"12345" dataUsingEncoding:NSUTF8StringEncoding];
 
     // 设置加密接口应在其他所有调用之前进行，否则会因无法解密而出错
-//    [_database setCipherKey:password];
-//    [_database setCipherKey:password andCipherPageSize:4096];
-//    [_database enableAutoBackup:YES];
+    [_database setCipherKey:password];
+    [_database setCipherKey:password andCipherPageSize:4096];
+    [_database enableAutoBackup:YES];
     BOOL ret = [_database createTable:@"sampleTable" withClass:Sample.class];
     
     _btn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -128,11 +144,14 @@ typedef enum : NSUInteger {
 //    } error:nil];
     
     
-    AVAudioSession *session = [AVAudioSession sharedInstance];
-    [session setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionMixWithOthers error:nil];
-    [session setActive:YES error:nil];
+//    AVAudioSession *session = [AVAudioSession sharedInstance];
+//    [session setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionMixWithOthers error:nil];
+//    [session setActive:YES error:nil];
     
-    
+
+//    [WCTDatabase globalTraceSQL:^(WCTTag tag, NSString *path, uint64_t handleId, NSString *sql, NSString *info) {
+//        NSLog(@"The handle with id %llu at path %@ executed sql %@", handleId, path, sql);
+//    }];
 }
 
 - (void)playAudio {
@@ -143,7 +162,7 @@ typedef enum : NSUInteger {
     // 创建 AVAudioPlayer 实例
     NSError *error = nil;
     self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
-    self.audioPlayer.numberOfLoops = 2;
+    self.audioPlayer.numberOfLoops = 1;
     // 检查是否有错误
     if (error) {
         NSLog(@"Error creating audio player: %@", [error localizedDescription]);
@@ -189,9 +208,9 @@ typedef enum : NSUInteger {
            
         }];
         
-        for (NSInteger i = 1; i < 9; i++) {
-            [self performSelector:@selector(startScheduleNoti) withObject:nil afterDelay:i*6];
-        }
+//        for (NSInteger i = 1; i < 9; i++) {
+//            [self performSelector:@selector(startScheduleNoti) withObject:nil afterDelay:i*6];
+//        }
     }
 }
 
@@ -267,41 +286,21 @@ typedef enum : NSUInteger {
     NSLog(@"");
 }
 
-void printProperties(Class cls) {
-    unsigned int propertyCount;
-    objc_property_t *properties = class_copyPropertyList(cls, &propertyCount);
-    
-    for (unsigned int i = 0; i < propertyCount; i++) {
-        objc_property_t property = properties[i];
-        
-        // Property name
-        const char *name = property_getName(property);
-        printf("Property: %s\n", name);
-        
-        // Property attributes
-//        const char *attributes = property_getAttributes(property);
-//        printf("Attributes: %s\n", attributes);
-        
-        // To get more detailed info about attributes, we can parse the attribute string.
-        // Here is a basic breakdown of attribute string components
-//        unsigned int attributeCount;
-//        objc_property_attribute_t *attrs = property_copyAttributeList(property, &attributeCount);
-//        
-//        for (unsigned int j = 0; j < attributeCount; j++) {
-//            printf(" - Attribute name: %s, value: %s\n", attrs[j].name, attrs[j].value);
-//        }
-        
-//        free(attrs);
-        printf("\n");
-    }
-    
-    free(properties);
-}
-
-
 - (void)onClick1{
-    [self addLocalNotice];
-//    [self playAudio];
+   
+    PLCrashReporterConfig *config = [[PLCrashReporterConfig alloc] initWithSignalHandlerType:PLCrashReporterSignalHandlerTypeBSD symbolicationStrategy:PLCrashReporterSymbolicationStrategyAll];
+    PLCrashReporter *crashReporter = [[PLCrashReporter alloc] initWithConfiguration:config];
+    NSTimer *timer =  [NSTimer timerWithTimeInterval:0.5 block:^(NSTimer * _Nonnull timer) {
+        
+        [self tryTest];
+        NSData *data = [crashReporter generateLiveReport];
+        PLCrashReport *reporter = [[PLCrashReport alloc] initWithData:data error:NULL];
+        NSString *report = [PLCrashReportTextFormatter stringValueForCrashReport:reporter
+                                                                  withTextFormat:PLCrashReportTextFormatiOS];
+        NSLog(@"------------\n%@\n------------", report);
+
+    } repeats:YES];
+    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
 }
 
 - (void)onClick2{
@@ -309,6 +308,10 @@ void printProperties(Class cls) {
     [self.navigationController pushViewController:vc animated:YES];
     
     SYPersonModel *model = [[SYPersonModel alloc] init];
+}
+
+- (void)tryTest{
+    sleep(2);
 }
 
 + (void)onClickA{
