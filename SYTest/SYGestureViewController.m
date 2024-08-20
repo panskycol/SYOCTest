@@ -22,7 +22,7 @@
     // SYPersonModel 添加了int age、NSinteger sex 两个属性
     SYPersonModel *model = [[SYPersonModel alloc] init];
     //  24   32
-    _model = NULL;
+    _model = model;
     
 //    [self sj_addObserver:self.model forKeyPath:@"age"];
     NSLog(@"%ld ==== %ld",[[SYPersonModel shareInstance] arcDebugRetainCount], [self arcDebugRetainCount]);
@@ -37,6 +37,10 @@
     [btn addTarget:self action:@selector(onClick1) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn];
     
+//    [SYPersonModel shareInstance].vc = self;
+    model.testCycleBlock = ^{
+        NSLog(@"%@",self);
+    };
 }
 
 - (void)dealloc{

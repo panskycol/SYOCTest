@@ -60,6 +60,8 @@
     
     [self registerAPN];
     
+
+    
     return YES;
 }
 

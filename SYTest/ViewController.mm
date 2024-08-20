@@ -33,6 +33,7 @@
 #import "SYTestView.h"
 #import "SharkfoodMuteSwitchDetector.h"
 #import <CrashReporter/CrashReporter.h>
+#import <FBRetainCycleDetector/FBRetainCycleDetector.h>
 
 typedef enum : NSUInteger {
     LoganTypeAction = 1,  //用户行为日志
@@ -61,6 +62,8 @@ typedef enum : NSUInteger {
 
 @property (nonatomic, strong) AVAudioPlayer *audioPlayer;
 @property (nonatomic, strong) SharkfoodMuteSwitchDetector *muteDetector;
+
+@property (nonatomic, strong) SYGestureViewController *vc;
 
 @end
 
@@ -288,26 +291,16 @@ typedef enum : NSUInteger {
 
 - (void)onClick1{
    
-    PLCrashReporterConfig *config = [[PLCrashReporterConfig alloc] initWithSignalHandlerType:PLCrashReporterSignalHandlerTypeBSD symbolicationStrategy:PLCrashReporterSymbolicationStrategyAll];
-    PLCrashReporter *crashReporter = [[PLCrashReporter alloc] initWithConfiguration:config];
-    NSTimer *timer =  [NSTimer timerWithTimeInterval:0.5 block:^(NSTimer * _Nonnull timer) {
-        
-        [self tryTest];
-        NSData *data = [crashReporter generateLiveReport];
-        PLCrashReport *reporter = [[PLCrashReport alloc] initWithData:data error:NULL];
-        NSString *report = [PLCrashReportTextFormatter stringValueForCrashReport:reporter
-                                                                  withTextFormat:PLCrashReportTextFormatiOS];
-        NSLog(@"------------\n%@\n------------", report);
-
-    } repeats:YES];
-    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+    FBRetainCycleDetector *detector = [FBRetainCycleDetector new];
+    [detector addCandidate:_vc];
+    NSSet *retainCycles = [detector findRetainCycles];
+    NSLog(@"%@", retainCycles);
 }
 
 - (void)onClick2{
     SYGestureViewController *vc = [[SYGestureViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
-    
-    SYPersonModel *model = [[SYPersonModel alloc] init];
+    _vc = vc;
 }
 
 - (void)tryTest{

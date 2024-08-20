@@ -59,4 +59,9 @@
     }
 }
 
+- (void)testCategory{
+    
+    NSLog(@"I am not category");
+}
+
 @end
