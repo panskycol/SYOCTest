@@ -1,0 +1,88 @@
+PODS:
+  - AFNetworking (4.0.1):
+    - AFNetworking/NSURLSession (= 4.0.1)
+    - AFNetworking/Reachability (= 4.0.1)
+    - AFNetworking/Security (= 4.0.1)
+    - AFNetworking/Serialization (= 4.0.1)
+    - AFNetworking/UIKit (= 4.0.1)
+  - AFNetworking/NSURLSession (4.0.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (4.0.1)
+  - AFNetworking/Security (4.0.1)
+  - AFNetworking/Serialization (4.0.1)
+  - AFNetworking/UIKit (4.0.1):
+    - AFNetworking/NSURLSession
+  - Aspects (1.4.1)
+  - FBRetainCycleDetector (0.1.4)
+  - FMDB (2.7.5):
+    - FMDB/standard (= 2.7.5)
+  - FMDB/standard (2.7.5)
+  - JZUIKit (0.4.1):
+    - Masonry
+  - KVOController (1.2.0)
+  - Masonry (1.1.0)
+  - PLCrashReporter (1.11.1)
+  - ReactiveObjC (3.1.1)
+  - SDWebImage (5.17.0):
+    - SDWebImage/Core (= 5.17.0)
+  - SDWebImage/Core (5.17.0)
+  - WCDB.objc (2.0.2.5):
+    - WCDB.objc/no-arc (= 2.0.2.5)
+    - WCDBOptimizedSQLCipher (~> 1.4.1)
+  - WCDB.objc/no-arc (2.0.2.5):
+    - WCDBOptimizedSQLCipher (~> 1.4.1)
+  - WCDBOptimizedSQLCipher (1.4.1)
+  - YYKit (1.0.9):
+    - YYKit/no-arc (= 1.0.9)
+  - YYKit/no-arc (1.0.9)
+
+DEPENDENCIES:
+  - AFNetworking
+  - Aspects
+  - FBRetainCycleDetector
+  - FMDB
+  - JZUIKit
+  - KVOController
+  - PLCrashReporter
+  - ReactiveObjC
+  - SDWebImage
+  - WCDB.objc
+  - YYKit
+
+SPEC REPOS:
+  https://git.wahaha636.com:6699/component/specs.git:
+    - JZUIKit
+  https://github.com/CocoaPods/Specs.git:
+    - AFNetworking
+    - Aspects
+    - FBRetainCycleDetector
+    - FMDB
+    - KVOController
+    - Masonry
+    - PLCrashReporter
+    - ReactiveObjC
+    - SDWebImage
+    - WCDB.objc
+    - WCDBOptimizedSQLCipher
+    - YYKit
+
+SPEC CHECKSUMS:
+  AFNetworking: 3bd23d814e976cd148d7d44c3ab78017b744cd58
+  Aspects: 7595ba96a6727a58ebcbfc954497fc5d2fdde546
+  FBRetainCycleDetector: 46f8179bbb1c587deee3ea838a1a3ee02acf5015
+  FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  JZUIKit: 78fa5a4aeca024f21622ca2a5416606d540baacc
+  KVOController: d72ace34afea42468329623b3379ab3cd1d286b6
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  PLCrashReporter: 5d2d3967afe0efad61b3048d617e2199a5d1b787
+  ReactiveObjC: 011caa393aa0383245f2dcf9bf02e86b80b36040
+  SDWebImage: 750adf017a315a280c60fde706ab1e552a3ae4e9
+  WCDB.objc: b979e526e61c807d31f2a9551082ad75a7de6e83
+  WCDBOptimizedSQLCipher: 880ec8aa6cda6b27e4c72b30bf0cc01771deda6f
+  YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
+
+PODFILE CHECKSUM: 1f54350dfe7a8aeb319ea8fa1fc5f97baebae1ee
+
+COCOAPODS: 1.11.3

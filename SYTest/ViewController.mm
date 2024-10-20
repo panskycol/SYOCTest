@@ -84,10 +84,10 @@ typedef enum : NSUInteger {
     }];
     
     //全局监控
-    [WCTDatabase globalTraceSQL:^(WCTTag, NSString * path, uint64_t, NSString * sql) {
-        
-        NSLog(@"");
-    }];
+//    [WCTDatabase globalTraceSQL:^(WCTTag, NSString * path, uint64_t, NSString * sql) {
+//
+//        NSLog(@"");
+//    }];
     
     NSString *docDir = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"JZDB"];
     NSString *dbFilePath = [docDir stringByAppendingPathComponent:@"sample.db"];

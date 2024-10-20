@@ -1,0 +1,6 @@
+framework module Pods_SYTest {
+  umbrella header "Pods-SYTest-umbrella.h"
+
+  export *
+  module * { export * }
+}

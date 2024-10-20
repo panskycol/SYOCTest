@@ -1,0 +1,6 @@
+framework module JZUIKit {
+  umbrella header "JZUIKit-umbrella.h"
+
+  export *
+  module * { export * }
+}
